@@ -89,8 +89,15 @@ if __name__ == '__main__':
                     continue
             # print("push button on!")
             start_time = time.time()
-            text = recorder.text(utils.main_process, start_time, communicator, similarity_cal, params.similarity_config, recorder)
+            text, thomas_event_state = recorder.text(utils.main_process, start_time, communicator, similarity_cal, params.similarity_config)
             print(f"\ninftext: {text}\n")
+            print(f"thomas_event_state: {thomas_event_state}\n")
+
+            if thomas_event_state == "serial_error":
+                print("Serial communication error detected. Shutting down...")
+                communicator.close()
+                recorder.shutdown()
+                break
 
     except serial.SerialException as e:
         print(f"Error opening serial port: {e}")

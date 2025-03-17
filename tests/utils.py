@@ -11,7 +11,7 @@ import params
 from serial_protocol import Serial_protocol
 
 
-def main_process(inf_text, start_time, communicator, similarity_cal, similarity_config, recorder):
+def main_process(inf_text, start_time, communicator, similarity_cal, similarity_config, thomas_event_state):
     """
         inf_text를 calculate_event_flag에 전달하여 최종 event_flag를 전달받고 communicator를 활용해 토마스에 event_flag를 sending!
         
@@ -36,16 +36,18 @@ def main_process(inf_text, start_time, communicator, similarity_cal, similarity_
     print(f"event_flag : {event_flag}\n")
 
     if event_flag == None:
-        return
+        return thomas_event_state
     
     else:
         # Serial Protocol
-        communicator.sending_param(event_flag, recorder)
+        thomas_event_state = communicator.sending_param(event_flag, thomas_event_state, inf_text)
         # print(f"received data : {communicator.received_param()}\n")
         end_time = time.time()
         process_time = end_time - start_time
 
         print(f"Processing Time : {process_time}\n")
+        
+        return thomas_event_state
 
 
 def calculate_cer(reference, hypothesis):

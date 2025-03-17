@@ -74,7 +74,7 @@ class Serial_protocol:
         """
         
         
-    def sending_param(self, event_flag, recorder):
+    def sending_param(self, event_flag, thomas_event_state, inf_text):
         """
         int 데이터를 바이트로 변환하여 전송 (8바이트, Big-endian)
 
@@ -83,24 +83,19 @@ class Serial_protocol:
 
         Returns: N/A
         """
-
-        try:
-
-            units = event_flag % 10  # 나머지
-            tens = event_flag // 10  # 몫
-
-            # print(units)
-            # print(tens)
-
-            self.preprocess(tens, units, recorder)
-
-        except serial.SerialException as e:
-            print(f"self.ser.write error: {e}\n")
-            self.close()
-            time.sleep(0.2)    
         
+        units = event_flag % 10  # 나머지
+        tens = event_flag // 10  # 몫
+
+        # print(units)
+        # print(tens)
+
+        thomas_event_state = self.preprocess(tens, units, thomas_event_state)
+            
+        return thomas_event_state
+
         
-    def preprocess(self, tens, units, recorder):
+    def preprocess(self, tens, units, thomas_event_state):
         """
         HW팀의 요청사항에 맞게 데이터 전송 전처리
         예시)
@@ -126,7 +121,7 @@ class Serial_protocol:
         
         # 초기 변수
         OK_target = f'\x02{tens}{units}OK\x03'
-        sec = 5 # received 대기 시간
+        sec = 4 # received 대기 시간
         cnt = 0 # retry count
         cnt_N = 3 # retry 시도 횟수
         exit_flag = False
@@ -136,7 +131,7 @@ class Serial_protocol:
         # print(f"[2,ord(str(x)),ord(str(y)),3] : {val}")
 
         byte_array = bytearray(val)
-        print(f"byte_array : {byte_array}")
+        # print(f"byte_array : {byte_array}")
 
         # data sending!
         self.ser.reset_output_buffer()
@@ -152,7 +147,6 @@ class Serial_protocol:
                 
                 if self.ser.in_waiting > 0: # 데이터가 들어왔을때!
                     try:
-                        
                         data = self.ser.readline().decode('utf-8')  # '\n' 제거
                         print(f"Received data1:{data}")
                         
@@ -170,7 +164,7 @@ class Serial_protocol:
                     # sending data matching! cross check!
                     if OK_target in data:
                         print("OK_target in data OK!\n")
-                        return
+                        return thomas_event_state
                             
                     else:
                         print(f"retry\n")
@@ -186,24 +180,24 @@ class Serial_protocol:
                 
             # 5초 지나도 데이터가 송신 안되었을때
             print("No data received for 5 seconds.\n")
-            time.sleep(1.0)
-            messagebox.showerror("Error", "장치 이벤트 번호 수신 없음, 장치 확인 후 프로그램 재 실행")
-            return
+            time.sleep(0.05)
+            # messagebox.showerror("Error", "장치 이벤트 번호 수신 없음, 장치 확인 후 프로그램 재 실행")
+            thomas_event_state = "serial_error"
+            return thomas_event_state
             # raise Exception("장치 이벤트 번호 수신 없음")
             # os._exit(1)
             
         except serial.SerialException as e:
             print(f"Error opening serial port: {e}")
+            exit_flag = True
             
         if exit_flag == True:
             print("장치 이벤트 번호 수신 error\n")
-            time.sleep(1.0)
-            messagebox.showerror("Error", "장치 이벤트 번호 수신 에러, 장치 확인 후 프로그램 재 실행")
-            return
-            # raise Exception("장치 이벤트 번호 수신 에러")
-            # os._exit(1)
-        else:
-            pass
+            time.sleep(0.05)
+            # messagebox.showerror("Error", "장치 이벤트 번호 수신 에러, 장치 확인 후 프로그램 재 실행")
+            thomas_event_state = "serial_error"
+            
+        return thomas_event_state
 
 
     def check_push_button(self):

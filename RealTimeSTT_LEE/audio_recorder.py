@@ -359,6 +359,8 @@ class AudioToTextRecorder:
             Exception: Errors related to initializing transcription
             model, wake word detection, or audio recording.
         """
+        self.shutdown_lock = threading.Lock()
+        self.thomas_event_state = "normal" # 토마스 이벤트 송수신 상태 체크 변수
         # self.pyannote_flag = pyannote_flag
         self.reduce_db_flag = reduce_db_flag
         self.reduce_noise_flag = reduce_noise_flag
@@ -1327,14 +1329,12 @@ class AudioToTextRecorder:
             print("wake words no match")
         return -1
     
-    
     def text(self,
              on_transcription_finished=None,
              start_time=None,
              communicator=None,
              similarity_cal=None,
              similarity_config=None,
-             recorder = None,
              ):
         """
         Transcribes audio captured by this class instance
@@ -1360,7 +1360,7 @@ class AudioToTextRecorder:
 
         self.interrupt_stop_event.clear()
         self.was_interrupted.clear()
-
+            
         self.wait_audio()
         
         if self.is_shut_down or self.interrupt_stop_event.is_set(): # is_shut_down 플래그는 전체 시스템이 종료되었는지, self.interrupt_stop_event.is_set()은 프로세스를 중단하는 이벤트가 설정되었는지
@@ -1368,6 +1368,8 @@ class AudioToTextRecorder:
                 self.was_interrupted.set()
             return "" # 전사 종료 시 빈 문자열 반환
 
+        inf_text = self.transcribe().rstrip(".?!")
+        
         if on_transcription_finished:
             """
 
@@ -1378,24 +1380,26 @@ class AudioToTextRecorder:
             전사처리가 완료된 후에 결과를 처리하도록 설계됨. 즉, 시간 초과로 조기 중단을 구현하는 것과 다르다는 것을 인식.
 
             """
+            thomas_serial_process_event = threading.Event()
+            
+            def wrapper():
+                self.thomas_event_state = on_transcription_finished(inf_text, start_time, communicator, similarity_cal, similarity_config, self.thomas_event_state)
 
-            self.transcription_thread = threading.Thread(
-                target=on_transcription_finished,
-                args=(self.transcribe().rstrip(".?!"), start_time, communicator, similarity_cal, similarity_config, recorder,),
-                )
+                thomas_serial_process_event.set()
+                
+            self.transcription_thread = threading.Thread(target=wrapper)
+            
             self.transcription_thread.daemon = True
             self.transcription_thread.start()
             
-            # UI에 출력하기 위함.
-            return self.transcribe().rstrip(".?!")
-
+            thomas_serial_process_event.wait()
+            
+            return inf_text, self.thomas_event_state
+            
         else:
-            """
-            on_transcription_finished
-            콜백함수가 정의되지 않았으니 그냥 전사처리 완료 후 바로 출력 
-
-            """
-            return self.transcribe()
+            # 콜백함수가 정의되지 않았으니 그냥 전사처리 완료 후 바로 출력 
+            
+            return inf_text, self.thomas_event_state
 
     def start(self):
         """
@@ -1516,7 +1520,11 @@ class AudioToTextRecorder:
         Safely shuts down the audio recording by stopping the
         recording worker and closing the audio stream.
         """
-
+        
+        with self.shutdown_lock:
+            if self.is_shut_down:
+                return
+             
         # Force wait_audio() and text() to exit
         self.is_shut_down = True
         self.start_recording_event.set()
@@ -1528,7 +1536,7 @@ class AudioToTextRecorder:
 
         logging.debug('Finishing recording thread')
         if self.recording_thread:
-            self.recording_thread.join(timeout=10)
+            self.recording_thread.join(timeout=5)
             if self.recording_thread.is_alive():
                 logging.warning("Recording thread did not terminate in time. Terminating forcefully.")
                 self.recording_thread = None
@@ -1537,7 +1545,7 @@ class AudioToTextRecorder:
 
         # Give it some time to finish the loop and cleanup.
         if self.use_microphone:
-            self.reader_process.join(timeout=10)
+            self.reader_process.join(timeout=5)
 
         if self.reader_process.is_alive():
             logging.warning("Reader process did not terminate "
@@ -1546,7 +1554,7 @@ class AudioToTextRecorder:
             self.reader_process.terminate()
 
         logging.debug('Terminating transcription process')
-        self.transcript_process.join(timeout=10)
+        self.transcript_process.join(timeout=5)
 
         if self.transcript_process.is_alive():
             logging.warning("Transcript process did not terminate "
@@ -1595,7 +1603,7 @@ class AudioToTextRecorder:
 
             # Continuously monitor audio for voice activity
             while self.is_running: # 오디오 입력을 지속적으로 확인
-
+                
                 try:
 
                     data = self.audio_queue.get() # audio_queue에 저장된 음성 chunk나 segment를 가져옴 

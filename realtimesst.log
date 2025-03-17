@@ -1,2 +1,246 @@
 RealTimeSTT: 2024-12-16 11:05:43,759 - root - WARNING - Audio queue size exceeds latency limit. Current size: 771. Discarding old audio chunks.
 RealTimeSTT: 2024-12-16 11:09:17,628 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-07 16:15:40,962 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:44:38,458 - root - WARNING - Audio queue size exceeds latency limit. Current size: 109. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:44:38,458 - root - WARNING - Audio queue size exceeds latency limit. Current size: 109. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:46:05,723 - root - WARNING - Audio queue size exceeds latency limit. Current size: 109. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:46:05,723 - root - WARNING - Audio queue size exceeds latency limit. Current size: 109. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:46:05,831 - root - WARNING - Audio queue size exceeds latency limit. Current size: 113. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:46:05,831 - root - WARNING - Audio queue size exceeds latency limit. Current size: 113. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:40,595 - root - WARNING - Audio queue size exceeds latency limit. Current size: 98. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:40,595 - root - WARNING - Audio queue size exceeds latency limit. Current size: 98. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:41,205 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:41,205 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:41,998 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:41,998 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:42,705 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:42,705 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:43,564 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:43,564 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:44,511 - root - WARNING - Audio queue size exceeds latency limit. Current size: 21. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:44,511 - root - WARNING - Audio queue size exceeds latency limit. Current size: 21. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:46,924 - root - WARNING - Audio queue size exceeds latency limit. Current size: 53. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:52:46,924 - root - WARNING - Audio queue size exceeds latency limit. Current size: 53. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:53:18,886 - root - WARNING - Audio queue size exceeds latency limit. Current size: 125. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:53:18,886 - root - WARNING - Audio queue size exceeds latency limit. Current size: 125. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:53:20,188 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 15:53:20,188 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:07,078 - root - WARNING - Audio queue size exceeds latency limit. Current size: 89. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:07,078 - root - WARNING - Audio queue size exceeds latency limit. Current size: 89. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:07,936 - root - WARNING - Audio queue size exceeds latency limit. Current size: 21. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:07,936 - root - WARNING - Audio queue size exceeds latency limit. Current size: 21. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:08,038 - root - WARNING - Audio queue size exceeds latency limit. Current size: 119. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:08,038 - root - WARNING - Audio queue size exceeds latency limit. Current size: 119. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:38,265 - root - WARNING - Audio queue size exceeds latency limit. Current size: 585. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:00:38,265 - root - WARNING - Audio queue size exceeds latency limit. Current size: 585. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:01:31,259 - root - WARNING - Audio queue size exceeds latency limit. Current size: 1105. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:01:31,259 - root - WARNING - Audio queue size exceeds latency limit. Current size: 1105. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 16:07:50,948 - root - WARNING - Audio queue size exceeds latency limit. Current size: 163. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 18:16:51,800 - root - WARNING - Audio queue size exceeds latency limit. Current size: 107. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 18:29:35,142 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 18:30:45,893 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 18:30:45,893 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 18:52:58,086 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 18:54:24,341 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 18:54:24,341 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 19:29:12,722 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 19:29:12,722 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-10 19:42:05,097 - root - WARNING - Audio queue size exceeds latency limit. Current size: 971. Discarding old audio chunks.
+RealTimeSTT: 2025-03-10 19:42:05,655 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 14:22:37,828 - root - WARNING - Audio queue size exceeds latency limit. Current size: 405. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 14:27:18,023 - root - WARNING - Audio queue size exceeds latency limit. Current size: 285. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 14:31:31,334 - root - WARNING - Audio queue size exceeds latency limit. Current size: 115. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 14:32:24,144 - root - WARNING - Audio queue size exceeds latency limit. Current size: 199. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:21:40,678 - root - WARNING - Audio queue size exceeds latency limit. Current size: 65. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:21:44,273 - root - WARNING - Audio queue size exceeds latency limit. Current size: 109. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:21:46,284 - root - WARNING - Audio queue size exceeds latency limit. Current size: 57. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:24:17,767 - root - WARNING - Audio queue size exceeds latency limit. Current size: 65. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:24:18,443 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:24:19,219 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:26:42,082 - root - WARNING - Audio queue size exceeds latency limit. Current size: 125. Discarding old audio chunks.
+RealTimeSTT: 2025-03-11 17:26:52,094 - root - WARNING - Reader process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-11 17:27:02,098 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-11 17:34:54,121 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-11 17:34:54,121 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 13:43:08,787 - root - WARNING - Audio queue size exceeds latency limit. Current size: 103. Discarding old audio chunks.
+RealTimeSTT: 2025-03-12 15:03:38,217 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 15:12:47,666 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 15:20:25,464 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 15:25:09,264 - root - ERROR - Unhandled exeption in _recording_worker: 
+RealTimeSTT: 2025-03-12 15:27:18,558 - root - ERROR - Unhandled exeption in _recording_worker: 'Queue' object has no attribute 'Empty'
+RealTimeSTT: 2025-03-12 15:27:42,047 - root - ERROR - Unhandled exeption in _recording_worker: 
+RealTimeSTT: 2025-03-12 15:29:03,998 - root - ERROR - Unhandled exeption in _recording_worker: name 'queue' is not defined
+RealTimeSTT: 2025-03-12 17:48:41,150 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 17:55:24,830 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 18:22:59,397 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 18:47:14,753 - root - WARNING - Audio queue size exceeds latency limit. Current size: 141. Discarding old audio chunks.
+RealTimeSTT: 2025-03-12 18:49:14,227 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 18:52:23,483 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 18:52:33,491 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-12 18:54:21,998 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 09:16:41,253 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 09:36:56,588 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 09:37:27,676 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 11:35:27,886 - root - WARNING - Audio queue size exceeds latency limit. Current size: 51. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:35:37,909 - root - WARNING - Reader process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 11:36:10,653 - root - WARNING - Audio queue size exceeds latency limit. Current size: 303. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:37:35,544 - root - WARNING - Audio queue size exceeds latency limit. Current size: 181. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:33,366 - root - WARNING - Audio queue size exceeds latency limit. Current size: 75. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:34,223 - root - WARNING - Audio queue size exceeds latency limit. Current size: 21. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:34,874 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:39,191 - root - WARNING - Audio queue size exceeds latency limit. Current size: 35. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:39,807 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:40,790 - root - WARNING - Audio queue size exceeds latency limit. Current size: 23. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:41,374 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:42,373 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:47,694 - root - WARNING - Audio queue size exceeds latency limit. Current size: 75. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:48,340 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:49,486 - root - WARNING - Audio queue size exceeds latency limit. Current size: 29. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:39:50,695 - root - WARNING - Audio queue size exceeds latency limit. Current size: 31. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:42:46,385 - root - WARNING - Audio queue size exceeds latency limit. Current size: 51. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:42:54,977 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:42:56,769 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:44:23,150 - root - WARNING - Audio queue size exceeds latency limit. Current size: 67. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:44:26,980 - root - WARNING - Audio queue size exceeds latency limit. Current size: 14. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:44:32,376 - root - WARNING - Audio queue size exceeds latency limit. Current size: 51. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:44:34,098 - root - WARNING - Audio queue size exceeds latency limit. Current size: 33. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:45:14,053 - root - WARNING - Audio queue size exceeds latency limit. Current size: 123. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:48:41,801 - root - WARNING - Audio queue size exceeds latency limit. Current size: 209. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:52:55,331 - root - WARNING - Audio queue size exceeds latency limit. Current size: 83. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:56:00,967 - root - WARNING - Audio queue size exceeds latency limit. Current size: 65. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:56:03,433 - root - WARNING - Audio queue size exceeds latency limit. Current size: 27. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:56:04,915 - root - WARNING - Audio queue size exceeds latency limit. Current size: 39. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:56:06,387 - root - WARNING - Audio queue size exceeds latency limit. Current size: 39. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:56:10,669 - root - WARNING - Audio queue size exceeds latency limit. Current size: 125. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:56:12,666 - root - WARNING - Audio queue size exceeds latency limit. Current size: 55. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:59:51,875 - root - WARNING - Audio queue size exceeds latency limit. Current size: 94. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 11:59:58,550 - root - WARNING - Audio queue size exceeds latency limit. Current size: 183. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 12:05:18,174 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 13:26:36,154 - root - WARNING - Audio queue size exceeds latency limit. Current size: 215. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:26:36,853 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:26:39,453 - root - WARNING - Audio queue size exceeds latency limit. Current size: 31. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:26:48,279 - root - WARNING - Audio queue size exceeds latency limit. Current size: 269. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:26:49,480 - root - WARNING - Audio queue size exceeds latency limit. Current size: 31. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:26:50,646 - root - WARNING - Audio queue size exceeds latency limit. Current size: 29. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:07,168 - root - WARNING - Audio queue size exceeds latency limit. Current size: 509. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:08,590 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:20,347 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 13:27:46,601 - root - WARNING - Audio queue size exceeds latency limit. Current size: 49. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:49,066 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:52,639 - root - WARNING - Audio queue size exceeds latency limit. Current size: 103. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:53,596 - root - WARNING - Audio queue size exceeds latency limit. Current size: 23. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:58,484 - root - WARNING - Audio queue size exceeds latency limit. Current size: 145. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 13:27:59,425 - root - WARNING - Audio queue size exceeds latency limit. Current size: 21. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:03:20,230 - root - WARNING - Audio queue size exceeds latency limit. Current size: 85. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:04:27,069 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:06:27,668 - root - WARNING - Audio queue size exceeds latency limit. Current size: 127. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:06:41,124 - root - WARNING - Audio queue size exceeds latency limit. Current size: 269. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:06:56,383 - root - WARNING - Audio queue size exceeds latency limit. Current size: 129. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:07:21,928 - root - WARNING - Audio queue size exceeds latency limit. Current size: 109. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:44,136 - root - WARNING - Audio queue size exceeds latency limit. Current size: 489. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:45,388 - root - WARNING - Audio queue size exceeds latency limit. Current size: 31. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:47,540 - root - WARNING - Audio queue size exceeds latency limit. Current size: 45. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:48,512 - root - WARNING - Audio queue size exceeds latency limit. Current size: 23. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:49,350 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:50,160 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:50,758 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:51,567 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:53,301 - root - WARNING - Audio queue size exceeds latency limit. Current size: 47. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:54,051 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:56,882 - root - WARNING - Audio queue size exceeds latency limit. Current size: 27. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:08:59,016 - root - WARNING - Audio queue size exceeds latency limit. Current size: 23. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:09:00,430 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:14:52,765 - root - WARNING - Audio queue size exceeds latency limit. Current size: 353. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:09,642 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:11,270 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:13,408 - root - WARNING - Audio queue size exceeds latency limit. Current size: 45. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:14,023 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:14,648 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:15,727 - root - WARNING - Audio queue size exceeds latency limit. Current size: 25. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:16:17,537 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:17:06,557 - root - WARNING - Audio queue size exceeds latency limit. Current size: 83. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:17:11,365 - root - WARNING - Audio queue size exceeds latency limit. Current size: 57. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:17:14,484 - root - WARNING - Audio queue size exceeds latency limit. Current size: 71. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:17:33,327 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 14:18:12,915 - root - WARNING - Audio queue size exceeds latency limit. Current size: 83. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:19:33,531 - root - WARNING - Audio queue size exceeds latency limit. Current size: 245. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:19:52,185 - root - WARNING - Audio queue size exceeds latency limit. Current size: 225. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:19:59,060 - root - WARNING - Audio queue size exceeds latency limit. Current size: 97. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:38,431 - root - WARNING - Audio queue size exceeds latency limit. Current size: 137. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:39,044 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:44,626 - root - WARNING - Audio queue size exceeds latency limit. Current size: 36. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:47,083 - root - WARNING - Audio queue size exceeds latency limit. Current size: 43. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:47,921 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:49,062 - root - WARNING - Audio queue size exceeds latency limit. Current size: 27. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:50,535 - root - WARNING - Audio queue size exceeds latency limit. Current size: 37. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:51,369 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:51,953 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:53,630 - root - WARNING - Audio queue size exceeds latency limit. Current size: 45. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:56,618 - root - WARNING - Audio queue size exceeds latency limit. Current size: 87. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:58,115 - root - WARNING - Audio queue size exceeds latency limit. Current size: 43. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:24:59,854 - root - WARNING - Audio queue size exceeds latency limit. Current size: 49. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:01,164 - root - WARNING - Audio queue size exceeds latency limit. Current size: 35. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:03,726 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:08,809 - root - WARNING - Audio queue size exceeds latency limit. Current size: 33. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:09,823 - root - WARNING - Audio queue size exceeds latency limit. Current size: 25. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:17,372 - root - WARNING - Audio queue size exceeds latency limit. Current size: 40. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:20,031 - root - WARNING - Audio queue size exceeds latency limit. Current size: 55. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:20,758 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:22,047 - root - WARNING - Audio queue size exceeds latency limit. Current size: 33. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:24,131 - root - WARNING - Audio queue size exceeds latency limit. Current size: 57. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:25,372 - root - WARNING - Audio queue size exceeds latency limit. Current size: 31. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:25:26,473 - root - WARNING - Audio queue size exceeds latency limit. Current size: 27. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:29,159 - root - WARNING - Audio queue size exceeds latency limit. Current size: 155. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:37,260 - root - WARNING - Audio queue size exceeds latency limit. Current size: 67. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:42,174 - root - WARNING - Audio queue size exceeds latency limit. Current size: 115. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:45,041 - root - WARNING - Audio queue size exceeds latency limit. Current size: 83. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:47,228 - root - WARNING - Audio queue size exceeds latency limit. Current size: 65. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:51,381 - root - WARNING - Audio queue size exceeds latency limit. Current size: 123. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:32:57,538 - root - WARNING - Audio queue size exceeds latency limit. Current size: 111. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:02,804 - root - WARNING - Audio queue size exceeds latency limit. Current size: 25. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:04,009 - root - WARNING - Audio queue size exceeds latency limit. Current size: 25. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:04,693 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:05,541 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:06,433 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:07,118 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:13,089 - root - WARNING - Audio queue size exceeds latency limit. Current size: 53. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:33:25,329 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 14:53:11,994 - root - WARNING - Audio queue size exceeds latency limit. Current size: 71. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:53:16,529 - root - WARNING - Audio queue size exceeds latency limit. Current size: 39. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 14:54:00,806 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 15:11:33,807 - root - WARNING - Audio queue size exceeds latency limit. Current size: 191. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 15:11:46,695 - root - WARNING - Reader process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 16:29:40,824 - root - WARNING - Audio queue size exceeds latency limit. Current size: 172. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 16:29:57,642 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 16:41:35,965 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 16:46:40,999 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 16:47:28,382 - root - WARNING - Audio queue size exceeds latency limit. Current size: 95. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 16:47:52,252 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 16:49:01,889 - root - WARNING - Audio queue size exceeds latency limit. Current size: 115. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 16:50:46,428 - root - WARNING - Audio queue size exceeds latency limit. Current size: 135. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 16:50:54,775 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 16:51:30,693 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 17:04:10,916 - root - WARNING - Audio queue size exceeds latency limit. Current size: 389. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:04:11,737 - root - WARNING - Audio queue size exceeds latency limit. Current size: 19. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:04:12,413 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:04:13,137 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:04:27,102 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 17:07:36,107 - root - WARNING - Audio queue size exceeds latency limit. Current size: 87. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:07:36,992 - root - WARNING - Audio queue size exceeds latency limit. Current size: 13. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:07:46,330 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 17:07:55,141 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 17:08:55,476 - root - WARNING - Audio queue size exceeds latency limit. Current size: 49. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:08:57,612 - root - WARNING - Audio queue size exceeds latency limit. Current size: 61. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:08:58,415 - root - WARNING - Audio queue size exceeds latency limit. Current size: 17. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:08:59,563 - root - WARNING - Audio queue size exceeds latency limit. Current size: 29. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:09:16,450 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 17:10:50,366 - root - WARNING - Audio queue size exceeds latency limit. Current size: 77. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:10:51,093 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:10:51,829 - root - WARNING - Audio queue size exceeds latency limit. Current size: 15. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:10:52,838 - root - WARNING - Audio queue size exceeds latency limit. Current size: 23. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:11:05,815 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
+RealTimeSTT: 2025-03-13 17:17:26,970 - root - WARNING - Audio queue size exceeds latency limit. Current size: 75. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:17:27,522 - root - WARNING - Audio queue size exceeds latency limit. Current size: 11. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:17:39,400 - root - WARNING - Audio queue size exceeds latency limit. Current size: 365. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:17:49,353 - root - WARNING - Audio queue size exceeds latency limit. Current size: 303. Discarding old audio chunks.
+RealTimeSTT: 2025-03-13 17:18:06,178 - root - WARNING - Recording thread did not terminate in time. Terminating forcefully.
