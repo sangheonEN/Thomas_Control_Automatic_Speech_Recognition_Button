@@ -1,5 +1,6 @@
 recorder_config:
   spinner: false
+  input_device_index: 0
   model: "medium"
   language: "ko"
   silero_sensitivity: 0.2
@@ -12,9 +13,9 @@ recorder_config:
   pre_recording_buffer_duration: 0.1
   
 communicator_config:
-  port: "COM11"
+  port: "COM5"
   baudrate: 115200
-  timeout: 0.01
+  timeout: 0.05
   input_type: "int"
   endianness: "big"
   push_button_trigger: false
@@ -23,6 +24,10 @@ similarity_config:
   function: "gestalt_pattern_matching"
   threshold: 0.75
   model_path: null
+
+gui_default_config:
+  icon_path: icon
+  ui_file_path: design_gridlayout_tab_adjust.ui
 
 event_flag:
   환자분 안녕하세요: 1

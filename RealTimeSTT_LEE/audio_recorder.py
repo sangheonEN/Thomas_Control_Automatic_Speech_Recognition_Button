@@ -55,6 +55,7 @@ import os
 import re
 import gc
 import noisereduce as nr
+import queue
 # from pyannote.audio import Pipeline
 # from pyannote.core import Segment
 
@@ -1378,10 +1379,15 @@ class AudioToTextRecorder:
 
             """
 
-            threading.Thread(
+            self.transcription_thread = threading.Thread(
                 target=on_transcription_finished,
                 args=(self.transcribe().rstrip(".?!"), start_time, communicator, similarity_cal, similarity_config, recorder,),
-                ).start()
+                )
+            self.transcription_thread.daemon = True
+            self.transcription_thread.start()
+            
+            # UI에 출력하기 위함.
+            return self.transcribe().rstrip(".?!")
 
         else:
             """
@@ -1522,7 +1528,10 @@ class AudioToTextRecorder:
 
         logging.debug('Finishing recording thread')
         if self.recording_thread:
-            self.recording_thread.join()
+            self.recording_thread.join(timeout=10)
+            if self.recording_thread.is_alive():
+                logging.warning("Recording thread did not terminate in time. Terminating forcefully.")
+                self.recording_thread = None
 
         logging.debug('Terminating reader process')
 
@@ -1555,6 +1564,18 @@ class AudioToTextRecorder:
             if self.realtime_model_type:
                 del self.realtime_model_type
                 self.realtime_model_type = None
+                
+        """
+        20250310 self.transcription_thread가 존재하고 실행 중인 경우 종료
+        """
+        # Terminate the transcription thread if it exists
+        if hasattr(self, 'transcription_thread') and self.transcription_thread.is_alive():
+            self.transcription_thread.join(timeout=10)
+            if self.transcription_thread.is_alive():
+                logging.warning("Transcription thread did not terminate in time. Terminating forcefully.")
+                # Forcefully terminate the thread if necessary
+                self.transcription_thread = None
+                
         gc.collect()
 
     def _recording_worker(self):
@@ -1608,7 +1629,6 @@ class AudioToTextRecorder:
                             """
 
                             data = self.audio_queue.get()
-
                 except BrokenPipeError:
                     print("BrokenPipeError _recording_worker")
                     self.is_running = False
@@ -1778,7 +1798,7 @@ class AudioToTextRecorder:
                     이를 통해 시스템이 오디오 데이터를 효과적으로 캡처하고 음성 활동의 존재 여부에 따라 지능적인 결정을 내릴 수 있으며, 이는 실시간 음성-텍스트 시스템에 필수
                     """
                     self.audio_buffer.append(data)
-
+            
         except Exception as e:
             if not self.interrupt_stop_event.is_set():
                 logging.error(f"Unhandled exeption in _recording_worker: {e}")

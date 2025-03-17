@@ -1,6 +1,6 @@
 import serial
 import time
-import sys
+from tkinter import messagebox
 import os
 
 class Serial_protocol:
@@ -32,23 +32,32 @@ class Serial_protocol:
         self.timeout: 최소 시간 초과 변수
         self.input_type: sending input type
         self.input_byte: the byte of sending input type
+        self.push_button_trigger: button on / off trigger
+        self.event_ok_er: event ok / error trigger
+        self.running = running: moniotring running state
         """
         self.port = port
         self.baudrate = baudrate
         self.timeout = timeout
         self.endianness = endianness
         self.push_button_trigger = push_button_trigger
+        # self.event_ok_er = event_ok_er
+        # self.running = running
+        
         if input_type == 'int':
             self.input_byte = 8
         else:
             self.input_byte = None
 
         # 시리얼 포트 설정
-        self.ser = serial.Serial(
-            port=self.port,      # Windows의 경우 COM 포트 번호를 지정
-            baudrate=self.baudrate,    # 보드레이트 설정
-            timeout=self.timeout         # 타임아웃 시간 (초)
-        )
+        try:
+            self.ser = serial.Serial(
+                port=self.port,      # Windows의 경우 COM 포트 번호를 지정
+                baudrate=self.baudrate,    # 보드레이트 설정
+                timeout=self.timeout         # 타임아웃 시간 (초)
+            )
+        except serial.SerialException as e:
+            print(f"Error opening serial port: {e}")
 
         """ debug용
             try:
@@ -63,7 +72,33 @@ class Serial_protocol:
             except serial.SerialException as e:
                 print(f"Error opening serial port: {e}")
         """
-    
+        
+        
+    def sending_param(self, event_flag, recorder):
+        """
+        int 데이터를 바이트로 변환하여 전송 (8바이트, Big-endian)
+
+        Args:
+            event_flag: 이벤트 기능을 통해 최종적으로 선택된 event_flag
+
+        Returns: N/A
+        """
+
+        try:
+
+            units = event_flag % 10  # 나머지
+            tens = event_flag // 10  # 몫
+
+            # print(units)
+            # print(tens)
+
+            self.preprocess(tens, units, recorder)
+
+        except serial.SerialException as e:
+            print(f"self.ser.write error: {e}\n")
+            self.close()
+            time.sleep(0.2)    
+        
         
     def preprocess(self, tens, units, recorder):
         """
@@ -104,8 +139,8 @@ class Serial_protocol:
         print(f"byte_array : {byte_array}")
 
         # data sending!
+        self.ser.reset_output_buffer()
         self.ser.write(byte_array)
-        
         
         # micom to pc response data receive code
         start_time = time.time()
@@ -151,51 +186,24 @@ class Serial_protocol:
                 
             # 5초 지나도 데이터가 송신 안되었을때
             print("No data received for 5 seconds.\n")
-            recorder.shutdown()
             time.sleep(1.0)
-            sys.exit()
+            messagebox.showerror("Error", "장치 이벤트 번호 수신 없음, 장치 확인 후 프로그램 재 실행")
+            return
+            # raise Exception("장치 이벤트 번호 수신 없음")
+            # os._exit(1)
             
         except serial.SerialException as e:
             print(f"Error opening serial port: {e}")
             
         if exit_flag == True:
-            print("Device Error\n")
-            recorder.shutdown()
+            print("장치 이벤트 번호 수신 error\n")
             time.sleep(1.0)
-            sys.exit()
+            messagebox.showerror("Error", "장치 이벤트 번호 수신 에러, 장치 확인 후 프로그램 재 실행")
+            return
+            # raise Exception("장치 이벤트 번호 수신 에러")
+            # os._exit(1)
         else:
             pass
-            
-
-
-    def sending_param(self, event_flag, recorder):
-        """
-        int 데이터를 바이트로 변환하여 전송 (8바이트, Big-endian)
-
-        Args:
-            event_flag: 이벤트 기능을 통해 최종적으로 선택된 event_flag
-
-        Returns: N/A
-        """
-
-        try:
-
-            units = event_flag % 10  # 나머지
-            tens = event_flag // 10  # 몫
-
-            # print(units)
-            # print(tens)
-
-            self.preprocess(tens, units, recorder)
-
-        except serial.SerialException as e:
-            print(f"self.ser.write error: {e}\n")
-            print(f"객체 종료 후 reopen 시도\n")
-            self.close()
-            time.sleep(0.2)
-            self.serial_state_check()
-
-        print(f"Sent event: {event_flag}")
 
 
     def check_push_button(self):
@@ -206,31 +214,16 @@ class Serial_protocol:
 
         Returns: int 데이터면, data 반환. 아니면, None 반환
         """
-        
-        data1 = self.ser.readline().decode('utf-8')
-        time.sleep(0.08)
-        data2 = self.ser.readline().decode('utf-8')
-        
-        # print(f"data1: {data1}\n")
-        # print(f"data2: {data2}\n")
-        # STOP 상태에 있다가 START 상태로 변환될때 STOPSTART가 같이 들어오는 data일때 True해서 넘김
-        if "STOP" in data1 and "START" in data2:
-            self.push_button_trigger = True
-        else:
-            self.push_button_trigger = False
-        
-        """
-        # 그냥 Received data 1개로만 판단하는 코드
-        # STOP 상태에 있다가 START 상태로 변환될때 STOPSTART가 같이 들어오는 data일때 True해서 넘김
-        # data = self.ser.readline().decode('utf-8')  # '\n' 제거
-        
-        # print(f"data: {data}\n")
-        # if "STOPSTART" in data:
-        #     self.push_button_trigger = True
-        # else:
-        #     self.push_button_trigger = False
-        
-        """
+        time.sleep(0.05)
+            
+        if self.ser.in_waiting > 0:
+            data1 = self.ser.readline().decode('utf-8')
+            print(f"data1: {data1}\n")
+            if "START" in data1:
+                self.push_button_trigger = True
+            else:
+                self.push_button_trigger = False
+
         
 
     def close(self):
@@ -240,26 +233,29 @@ class Serial_protocol:
             time.sleep(0.2)
 
 
-    def serial_state_check(self):
+    # def serial_state_check(self):
 
-        if self.ser.is_open:
-            print("Serial port is already open.\n")
-            return
+    #     if self.ser.is_open:
+    #         print("Serial port is already open.\n")
+    #         return
 
-        else:
-            # 오픈 안되었겠지만 혹시 모르니까 close
-            self.close()
-            self.reopen_serial()
+    #     else:
+    #         # 오픈 안되었겠지만 혹시 모르니까 close
+    #         self.close()
+    #         self.reopen_serial()
 
+    # def reopen_serial(self):
+    #     """Attempts to reopen the serial port after closing it."""
 
-    def reopen_serial(self):
-        """Attempts to reopen the serial port after closing it."""
+    #     try:
+    #         while True:
+    #             self.ser.open()
+    #             time.sleep(0.2)
+    #             print("serial reopen 완료!!!!!!!!!\n")
+    #             if self.ser.is_open:
+    #                 break
+            
 
-        try:
-            self.ser.open()
-            time.sleep(0.2)
-            print("serial reopen 완료!!!!!!!!!\n")
-
-        except serial.SerialException as e:
-            # serial.serialutil.SerialException: could not open port 'COM8': FileNotFoundError(2, '지정된 파일을 찾을 수 없습니다.', None, 2)
-            print(f"reopen serial error : {e}\n")
+    #     except serial.SerialException as e:
+    #         # serial.serialutil.SerialException: could not open port 'COM8': FileNotFoundError(2, '지정된 파일을 찾을 수 없습니다.', None, 2)
+    #         print(f"reopen serial error : {e}\n")

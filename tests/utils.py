@@ -32,7 +32,6 @@ def main_process(inf_text, start_time, communicator, similarity_cal, similarity_
     else:
         event_flag, max_similarity, _ = similarity_cal.sentence_transformers(inf_text, threshold)
 
-    print(f"inf_text : {inf_text}\n")
     print(f"similarity : {max_similarity}\n")
     print(f"event_flag : {event_flag}\n")
 
@@ -40,14 +39,13 @@ def main_process(inf_text, start_time, communicator, similarity_cal, similarity_
         return
     
     else:
-        communicator.serial_state_check()
         # Serial Protocol
         communicator.sending_param(event_flag, recorder)
         # print(f"received data : {communicator.received_param()}\n")
         end_time = time.time()
         process_time = end_time - start_time
 
-        print(f"Processing Time : {process_time}\n")  
+        print(f"Processing Time : {process_time}\n")
 
 
 def calculate_cer(reference, hypothesis):
@@ -83,7 +81,8 @@ def check_mic_connection():
         # Try to get the default input device info
         default_device = audio.get_default_input_device_info()
         input_device_index = default_device['index']
-
+        params.recorder_config['input_device_index'] = input_device_index
+        print(f"params.recorder_config['input_device_index']: {params.recorder_config['input_device_index']}")
         # print(f"default_device: {default_device}")
         # print(f"input_device_index: {input_device_index}")
 
@@ -107,5 +106,11 @@ def check_communicator(communicator_config):
     except serial.SerialException as e:
         # Handle the error if no default input device is available
         print(f"No connected thomas device available. Error : {e}")
-        sys.exit(1)
+        raise RuntimeError(f"No connected thomas device available. Error: {e}") from e
         
+    """ 사용 가능한 포트 확인 debug
+        # import serial.tools.list_ports
+        # ports = serial.tools.list_ports.comports()
+        # available = [port.device for port in ports]
+        # print("현재 사용 가능한 포트:", available)
+    """

@@ -61,6 +61,7 @@ import params
 from RealTimeSTT_LEE.audio_recorder import AudioToTextRecorder
 import utils
 from text_similarity import Similarity_cal
+import serial
 
 if __name__ == '__main__':
     
@@ -74,16 +75,12 @@ if __name__ == '__main__':
     print("Say something...")
 
     try:
-            
-        print("잘 실행됨?\n")
-
         while (True):
             
             # 버튼식 Wake Up Trigger!
             while (True):
+                communicator.ser.reset_input_buffer() # 이걸 적용해야 버튼 누를때마다 버튼 눌림을 인식함. 적용 안하면 START 계속 쌓임.
                 communicator.check_push_button()
-                time.sleep(0.08) # 이거 안하면, check push button을 위한 received data가 순서대로 안들어옴. 레이턴시 맞추기 debug -> print(f"data1: {data1}\n"), print(f"data2: {data2}\n")
-                
                 if communicator.push_button_trigger:
                     # 다시 push_button_trigger False로 초기화
                     communicator.push_button_trigger = False
@@ -92,10 +89,18 @@ if __name__ == '__main__':
                     continue
             # print("push button on!")
             start_time = time.time()
-            recorder.text(utils.main_process, start_time, communicator, similarity_cal, params.similarity_config, recorder)
-            time.sleep(0.08) # 이거 안하면 sending data cross check를 위한 received data가 순서대로 안들어옴. 레이턴시 맞추기 debug -> print(f"Received data1:{data}")
+            text = recorder.text(utils.main_process, start_time, communicator, similarity_cal, params.similarity_config, recorder)
+            print(f"\ninftext: {text}\n")
 
-            
-    except KeyboardInterrupt:
+    except serial.SerialException as e:
+        print(f"Error opening serial port: {e}")
         communicator.close()
-        print("Serial protocol terminated due to KeyboardInterrupt\n")
+        recorder.shutdown()
+    except KeyboardInterrupt:
+        print("Program terminated due to KeyboardInterrupt\n")
+        communicator.close()
+        recorder.shutdown()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        communicator.close()
+        recorder.shutdown()
