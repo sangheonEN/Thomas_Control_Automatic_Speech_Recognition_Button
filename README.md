@@ -2,9 +2,12 @@
 
 # VERSION 설명
 V1.0 : 통신 기능 동기식 코드
+
 V1.1 : 통신 기능의 출력 버퍼 초기화 적용, utils.main_process 함수 thread화 코드 적용 (20250312_BUTTON식음성인식모듈코드변경 사항.txt 참고)
+
 V1.2 : 토마스 이벤트 송수신 상태 체크 변수 적용 및 Main Process에서 shutdown 함수 적용 전환으로 올바른 종료 코드 적용 (20250313_BUTTON식음성인식모듈코드변경사항.txt 참고)
    -> utils.main_process 함수내에서 본인의 함수를 처리하는 thread를 join하면 계속 기다리니, 이걸 main process내에서 종료하도록 변경함. 
+   
 V1.3 : 통신 기능 비동기식 적용 예정
 
 # py source description.
