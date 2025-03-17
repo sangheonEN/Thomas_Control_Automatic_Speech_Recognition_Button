@@ -1,0 +1,2 @@
+RealTimeSTT: 2024-12-16 11:05:43,759 - root - WARNING - Audio queue size exceeds latency limit. Current size: 771. Discarding old audio chunks.
+RealTimeSTT: 2024-12-16 11:09:17,628 - root - WARNING - Transcript process did not terminate in time. Terminating forcefully.

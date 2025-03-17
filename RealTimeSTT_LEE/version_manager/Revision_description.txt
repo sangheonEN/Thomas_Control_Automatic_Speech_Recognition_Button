@@ -1,0 +1,7 @@
+r1 : Before apply mic reconnection
+r2 : apply mic reconnection
+r3 : apply highest sample rate audio reading
+r4 : mic reconnection sangheon code
+r5 : apply highest sample rate audio reading and mic reconnection
+r6 : apply serial protocol connection but threading out 
+r7 : apply serial protocol connection and main code theading and Faster-whisper, silero model local pc path로 설정
