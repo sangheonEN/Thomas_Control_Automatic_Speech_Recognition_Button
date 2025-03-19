@@ -66,31 +66,50 @@ def calculate_cer(reference, hypothesis):
 
 def check_mic_connection():
     """
-    Check if any microphone is connected.
+    mic check 입력 파라미터 loading code 참고: https://github.com/WindyYam/gemini_voice_companion/blob/main/scripts/voice_recognition.py#L5
+    
+    이 코드는 사용자가 지정한 오디오 장치 이름(device_name)이 있을 경우, 시스템에 연결된 모든 오디오 장치를 순회하면서 입력 기능(마이크 등)을 제공하는 장치들 중에서 이름에 device_name이 포함된 장치를 찾는 역할을 합니다. 
 
-    sys.exit(0) 또는 exit(0): 프로그램이 성공적으로 실행
-    sys.exit(1), exit(1), 또는 기타 0이 아닌 코드: 프로그램에 오류가 발생했거나 비정상적으로 종료
+        구체적으로:
 
-    * 마이크가 연결 되지 않아도 audio device가 'name': 'Input ()'으로 잡히는 경우가 발생함. 나중에 다른 pc에서도 hostApi 번호가 인식되었을때 0이고 안되었을때 3이면 이걸 기준으로 판단해서 인식 안된 경우라고 예외처리 해보자. 
-    인식되었을때 default_device 출력 내용: {'index': 1, 'structVersion': 2, 'name': 'Headset(LG HBS-PL6S AI)', 'hostApi': 0, 'maxInputChannels': 1, 'maxOutputChannels': 0, 'defaultLowInputLatency': 0.09, 'defaultLowOutputLatency': 0.09, 'defaultHighInputLatency': 0.18, 'defaultHighOutputLatency': 0.18, 'defaultSampleRate': 44100.0}
-    인식 안되었을때 default_device 출력 내용: {'index': 1, 'structVersion': 2, 'name': 'Input ()', 'hostApi': 3, 'maxInputChannels': 2, 'maxOutputChannels': 0, 'defaultLowInputLatency': 0.01, 'defaultLowOutputLatency': 0.01, 'defaultHighInputLatency': 0.08533333333333333, 'defaultHighOutputLatency': 0.08533333333333333, 'defaultSampleRate': 44100.0}
+        1. 장치 유효성 확인: 먼저 device_name이 존재하는지 확인합니다.
+        2. 장치 반복: 0부터 numdevices까지 모든 오디오 장치를 반복문으로 확인합니다.
+        3. 입력 장치 필터링: 각 장치의 maxInputChannels 값이 0보다 큰지 확인하여 입력이 가능한 장치인지 판단합니다.
+        4. 이름 매칭: 해당 장치의 이름에 device_name 문자열이 포함되어 있는지 검사합니다.
+        5. 인덱스 할당: 조건에 맞는 장치를 찾으면, 그 장치의 인덱스를 device_index에 저장합니다.
 
-    :return: True if a microphone is found, False otherwise.
+        즉, 이 코드는 원하는 이름을 가진 입력 장치를 자동으로 선택하기 위해 사용됩니다.
+
+    return: True if a microphone is found, False otherwise.
     """
-    audio = pyaudio.PyAudio()
 
     try:
-        # Try to get the default input device info
-        default_device = audio.get_default_input_device_info()
-        input_device_index = default_device['index']
-        params.recorder_config['input_device_index'] = input_device_index
+
+        audio = pyaudio.PyAudio()
+        
+        info = audio.get_default_host_api_info()
+        numdevices = info.get('deviceCount')
+        device_index = None
+        device_name = params.recorder_config["device_name"]
+
+        if device_name:
+            for i in range(0, numdevices):
+                if audio.get_device_info_by_host_api_device_index(0, i).get('maxInputChannels') > 0:
+                    if device_name in audio.get_device_info_by_host_api_device_index(0, i).get('name'):
+                        device_index = i
+        if device_index:
+            print('Setting Recorder: ', audio.get_device_info_by_host_api_device_index(
+                0, device_index).get('name'))
+        else:
+            print('Setting Recorder: ',
+                audio.get_default_input_device_info().get('name'))
+
+        params.recorder_config['input_device_index'] = device_index
         print(f"params.recorder_config['input_device_index']: {params.recorder_config['input_device_index']}")
-        # print(f"default_device: {default_device}")
-        # print(f"input_device_index: {input_device_index}")
 
         # Check if a valid input device index is found
-        if input_device_index is not None:
-            print(f"Microphone '{default_device['name']}' is connected.")
+        if device_index is not None:
+            print(f"Microphone '{device_name}' is connected.")
             return True
 
     except OSError:

@@ -113,6 +113,7 @@ class AudioToTextRecorder:
                  language: str = "",
                  compute_type: str = "default",
                  input_device_index: int = None,
+                 device_name: str = None,
                  gpu_device_index: Union[int, List[int]] = 0,
                  device: str = "cuda",
                  on_recording_start=None, # 초기화 중에 on_recording_start 콜백이 제공된 경우 이 콜백 함수에 대입하면 사용할 수 있습니다. 이를 통해 녹음이 시작될 때 UI 업데이트나 로깅과 같은 외부 작업을 트리거할 수 있습니다.
@@ -367,6 +368,7 @@ class AudioToTextRecorder:
         self.language = language
         self.compute_type = compute_type
         self.input_device_index = input_device_index
+        self.device_name = device_name
         self.gpu_device_index = gpu_device_index
         self.device = device
         self.wake_words = wake_words
@@ -1380,19 +1382,19 @@ class AudioToTextRecorder:
             전사처리가 완료된 후에 결과를 처리하도록 설계됨. 즉, 시간 초과로 조기 중단을 구현하는 것과 다르다는 것을 인식.
 
             """
-            thomas_serial_process_event = threading.Event()
+            thomas_serial_process_event = threading.Event() # set() 메서드로 참으로 설정하고 clear() 메서드로 거짓으로 재설정 할 수 있는 플래그를 관리
             
             def wrapper():
                 self.thomas_event_state = on_transcription_finished(inf_text, start_time, communicator, similarity_cal, similarity_config, self.thomas_event_state)
 
-                thomas_serial_process_event.set()
+                thomas_serial_process_event.set() # on_transcription_finished 콜백 함수가 처리가 완료되고 self.thomas_event_state가 업데이트 되면 set으로 event 변수 업데이트
                 
             self.transcription_thread = threading.Thread(target=wrapper)
             
             self.transcription_thread.daemon = True
             self.transcription_thread.start()
             
-            thomas_serial_process_event.wait()
+            thomas_serial_process_event.wait() # wrapper함수에서 on_transcription_finished 콜백 함수가 처리가 완료되고 self.thomas_event_state가 업데이트 될때까지 기다림.
             
             return inf_text, self.thomas_event_state
             

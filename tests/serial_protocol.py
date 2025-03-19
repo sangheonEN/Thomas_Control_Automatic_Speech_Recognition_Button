@@ -25,7 +25,7 @@ class Serial_protocol:
     """
 
 
-    def __init__(self, port="", baudrate=115200, timeout=0.001, input_type='int', endianness='big', push_button_trigger = False):
+    def __init__(self, port="", baudrate=115200, timeout=0.05, input_type='int', endianness='big', push_button_trigger = False):
         """
         self.port : port 정보
         self.baudrate : 보레이트 정보
