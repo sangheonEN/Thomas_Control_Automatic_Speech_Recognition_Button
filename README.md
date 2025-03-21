@@ -8,7 +8,17 @@ V1.1 : 통신 기능의 출력 버퍼 초기화 적용, utils.main_process 함�
 V1.2 : 토마스 이벤트 송수신 상태 체크 변수 적용 및 Main Process에서 shutdown 함수 적용 전환으로 올바른 종료 코드 적용 (20250313_BUTTON식음성인식모듈코드변경사항.txt 참고)
    -> utils.main_process 함수내에서 본인의 함수를 처리하는 thread를 join하면 계속 기다리니, 이걸 main process내에서 종료하도록 변경함. 
    
-V1.3 : 통신 기능 비동기식 적용 예정
+V1.3 : 통신 기능 비동기식 적용
+
+- 비동기적 시리얼 통신 reading 기능을 적용하여 I/O 작업을 개선했다.
+
+- 기존에 문제점은 동기적으로 데이터 통신하여 지속적으로 들어오는 동안 읽기 처리가 늦어져서 입력 버퍼가 넘치고 데이터가 버려지는 현상("버퍼 오버플로우" 또는 "데이터 드랍”)으로 데이터가 유실되어 정상적인 데이터를 송신 받지 못하여 처리가 안됨.
+
+- 구현 내용
+    - https://github.com/pyserial/pyserial-asyncio를 활용해서 pyserial-asyncio ver(0.6) 코드 구현
+- 시행 착오 내용
+    1. https://github.com/Lei-k/async-pyserial를 활용해서 Reading하는 기능을 개발했지만, “START” 대신 “b'STP*\xf5’”가 읽어지는 문제가 발생하여 해당 깃은 제외
+    2. 버튼을 꾹 눌러서 “START”가 계속 들어오면 “OK 시그널” 체크에서 “START”가 reading되어 serial error가 트리거 되는 버그 발생. → 예외 처리 하여 개선
 
 # py source description.
 
