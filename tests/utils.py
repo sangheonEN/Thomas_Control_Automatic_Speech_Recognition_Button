@@ -10,6 +10,17 @@ import serial
 import params
 from serial_protocol import Serial_protocol
 
+def event_matching(inf_text, similarity_cal, similarity_config):
+    
+    similarity_function = similarity_config["function"]
+    threshold = similarity_config["threshold"]
+
+    if similarity_function == "gestalt_pattern_matching":
+        event_flag, max_similarity, _ = similarity_cal.gestalt_pattern_matching(inf_text, threshold)
+    else:
+        event_flag, max_similarity, _ = similarity_cal.sentence_transformers(inf_text, threshold)
+        
+    return event_flag, max_similarity
 
 def main_process(inf_text, start_time, communicator, similarity_cal, similarity_config, thomas_event_state):
     """
@@ -36,7 +47,7 @@ def main_process(inf_text, start_time, communicator, similarity_cal, similarity_
     print(f"event_flag : {event_flag}\n")
 
     if event_flag == None:
-        return thomas_event_state
+        return inf_text, thomas_event_state
     
     else:
         # Serial Protocol
@@ -47,7 +58,7 @@ def main_process(inf_text, start_time, communicator, similarity_cal, similarity_
 
         print(f"Processing Time : {process_time}\n")
         
-        return thomas_event_state
+        return inf_text, thomas_event_state
 
 
 def calculate_cer(reference, hypothesis):
@@ -110,7 +121,6 @@ def check_mic_connection():
         # Check if a valid input device index is found
         if device_index is not None:
             print(f"Microphone '{device_name}' is connected.")
-            return True
 
     except OSError:
         # Handle the error if no default input device is available

@@ -1333,10 +1333,6 @@ class AudioToTextRecorder:
     
     def text(self,
              on_transcription_finished=None,
-             start_time=None,
-             communicator=None,
-             similarity_cal=None,
-             similarity_config=None,
              ):
         """
         Transcribes audio captured by this class instance
@@ -1382,26 +1378,27 @@ class AudioToTextRecorder:
             전사처리가 완료된 후에 결과를 처리하도록 설계됨. 즉, 시간 초과로 조기 중단을 구현하는 것과 다르다는 것을 인식.
 
             """
-            thomas_serial_process_event = threading.Event() # set() 메서드로 참으로 설정하고 clear() 메서드로 거짓으로 재설정 할 수 있는 플래그를 관리
+            # thomas_serial_process_event = threading.Event() # set() 메서드로 참으로 설정하고 clear() 메서드로 거짓으로 재설정 할 수 있는 플래그를 관리
             
-            def wrapper():
-                self.thomas_event_state = on_transcription_finished(inf_text, start_time, communicator, similarity_cal, similarity_config, self.thomas_event_state)
+            # def wrapper():
+            #     self.thomas_event_state = on_transcription_finished(inf_text, start_time, communicator, similarity_cal, similarity_config, self.thomas_event_state)
 
-                thomas_serial_process_event.set() # on_transcription_finished 콜백 함수가 처리가 완료되고 self.thomas_event_state가 업데이트 되면 set으로 event 변수 업데이트
+            #     thomas_serial_process_event.set() # on_transcription_finished 콜백 함수가 처리가 완료되고 self.thomas_event_state가 업데이트 되면 set으로 event 변수 업데이트
                 
-            self.transcription_thread = threading.Thread(target=wrapper)
+            # self.transcription_thread = threading.Thread(target=wrapper)
             
-            self.transcription_thread.daemon = True
-            self.transcription_thread.start()
+            # self.transcription_thread.daemon = True
+            # self.transcription_thread.start()
             
-            thomas_serial_process_event.wait() # wrapper함수에서 on_transcription_finished 콜백 함수가 처리가 완료되고 self.thomas_event_state가 업데이트 될때까지 기다림.
+            # thomas_serial_process_event.wait() # wrapper함수에서 on_transcription_finished 콜백 함수가 처리가 완료되고 self.thomas_event_state가 업데이트 될때까지 기다림.
             
-            return inf_text, self.thomas_event_state
+            # return inf_text, self.thomas_event_state
+            return inf_text
             
         else:
             # 콜백함수가 정의되지 않았으니 그냥 전사처리 완료 후 바로 출력 
-            
-            return inf_text, self.thomas_event_state
+            return inf_text
+            # return inf_text, self.thomas_event_state
 
     def start(self):
         """
