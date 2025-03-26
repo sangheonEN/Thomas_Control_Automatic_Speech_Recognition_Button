@@ -20,6 +20,12 @@ V1.3 : 통신 기능 비동기식 적용
     1. https://github.com/Lei-k/async-pyserial를 활용해서 Reading하는 기능을 개발했지만, “START” 대신 “b'STP*\xf5’”가 읽어지는 문제가 발생하여 해당 깃은 제외
     2. 버튼을 꾹 눌러서 “START”가 계속 들어오면 “OK 시그널” 체크에서 “START”가 reading되어 serial error가 트리거 되는 버그 발생. → 예외 처리 하여 개선
 
+V1.4 : 전체 코드 개선 및 버그 수정
+
+0. 변경 사항 : 기존의 asyncio_protocol.py 코드를 main.py(메인 코드), async_serial_protocol.py(시리얼 클래스 정의)로 분리
+
+1. 변경 사항 : 여러번 버튼 눌렀을 때 "START"가 쌓이는 문제 해결
+
 # py source description.
 
 1. Thomas_audio_control_src.py : Main code. Thomas Connection + Mic Connection + RealTimeSTT + Thomas Sending the Event parameters
