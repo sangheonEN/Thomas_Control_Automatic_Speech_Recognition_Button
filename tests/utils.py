@@ -1,14 +1,9 @@
-import os
-import editdistance
 import pyaudio
 import sys
-from pydub import AudioSegment
-from pydub.playback import play
-import time
-import serial
+
 
 import params
-from serial_protocol import Serial_protocol
+
 
 def event_matching(inf_text, similarity_cal, similarity_config):
     
@@ -21,58 +16,6 @@ def event_matching(inf_text, similarity_cal, similarity_config):
         event_flag, max_similarity, _ = similarity_cal.sentence_transformers(inf_text, threshold)
         
     return event_flag, max_similarity
-
-def main_process(inf_text, start_time, communicator, similarity_cal, similarity_config, thomas_event_state):
-    """
-        inf_text를 calculate_event_flag에 전달하여 최종 event_flag를 전달받고 communicator를 활용해 토마스에 event_flag를 sending!
-        
-        Args:
-            inf_text: STT 추론 TEXT
-            start_time: main process 실행 시작 시간
-            communicator: utils.Serial_protocol(**communicator_config)
-
-        Return: N/A
-
-    """
-
-    similarity_function = similarity_config["function"]
-    threshold = similarity_config["threshold"]
-
-    if similarity_function == "gestalt_pattern_matching":
-        event_flag, max_similarity, _ = similarity_cal.gestalt_pattern_matching(inf_text, threshold)
-    else:
-        event_flag, max_similarity, _ = similarity_cal.sentence_transformers(inf_text, threshold)
-
-    print(f"similarity : {max_similarity}\n")
-    print(f"event_flag : {event_flag}\n")
-
-    if event_flag == None:
-        return inf_text, thomas_event_state
-    
-    else:
-        # Serial Protocol
-        thomas_event_state = communicator.sending_param(event_flag, thomas_event_state, inf_text)
-        # print(f"received data : {communicator.received_param()}\n")
-        end_time = time.time()
-        process_time = end_time - start_time
-
-        print(f"Processing Time : {process_time}\n")
-        
-        return inf_text, thomas_event_state
-
-
-def calculate_cer(reference, hypothesis):
-    """
-        cer 계산 함수
-        Args:
-            reference: reference text
-            hypothesis: prediction text
-        Return: cer
-
-    """
-    distance = editdistance.eval(reference, hypothesis)
-    cer = distance / len(reference) if len(reference) > 0 else 0
-    return cer
 
 
 def check_mic_connection():
@@ -126,22 +69,3 @@ def check_mic_connection():
         # Handle the error if no default input device is available
         print("No default input mic device available.")
         sys.exit(1)
-
-
-def check_communicator(communicator_config):
-    try:
-        communicator = Serial_protocol(**communicator_config)
-        if communicator.ser.is_open:
-            print("Serial connection established.")
-            return communicator
-    except serial.SerialException as e:
-        # Handle the error if no default input device is available
-        print(f"No connected thomas device available. Error : {e}")
-        raise RuntimeError(f"No connected thomas device available. Error: {e}") from e
-        
-    """ 사용 가능한 포트 확인 debug
-        # import serial.tools.list_ports
-        # ports = serial.tools.list_ports.comports()
-        # available = [port.device for port in ports]
-        # print("현재 사용 가능한 포트:", available)
-    """

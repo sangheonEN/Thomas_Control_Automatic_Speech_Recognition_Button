@@ -81,13 +81,3 @@ class Similarity_cal:
         
         return event_flag, max_value, similarities
     
-
-    def key_word_matching(self, inf_text, threshold):
-        """
-            How can i key word matching tech?
-            threshold default : 0.7
-        """
-        
-        
-
-        pass

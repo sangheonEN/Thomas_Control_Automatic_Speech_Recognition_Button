@@ -1,7 +1,7 @@
 recorder_config:
   spinner: false
   input_device_index: 0
-  model: "medium"
+  model: "large-v2"
   language: "ko"
   silero_sensitivity: 0.2
   webrtc_sensitivity: 3
@@ -10,16 +10,13 @@ recorder_config:
   silero_use_onnx: true
   silero_deactivity_detection: true
   post_speech_silence_duration: 0.2
-  pre_recording_buffer_duration: 0.1
+  pre_recording_buffer_duration: 0.2
   device_name: "LG HBS-PL6S AI"
   
 communicator_config:
   port: "COM5"
   baudrate: 115200
   timeout: 0.05
-  input_type: "int"
-  endianness: "big"
-  push_button_trigger: false
 
 similarity_config:
   function: "gestalt_pattern_matching"
