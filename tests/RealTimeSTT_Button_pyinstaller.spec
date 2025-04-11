@@ -7,7 +7,7 @@
 
 # Add torch-specific collected data to the main analysis
 a = Analysis(
-    ['Thomas_audio_control_src.py'],
+    ['main.py'],
     pathex=[],
     binaries=[],  # Add torch binaries
     datas=[

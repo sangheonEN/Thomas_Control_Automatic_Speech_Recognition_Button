@@ -2,7 +2,6 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import asyncio
-from async_serial_protocol import AsyncSerialCommunicator
 import time
 import torch.multiprocessing as mp
 import serial
@@ -11,12 +10,11 @@ import utils
 import params
 from RealTimeSTT_LEE.audio_recorder import AudioToTextRecorder
 from text_similarity import Similarity_cal
+from async_serial_protocol import AsyncSerialCommunicator
 
 
 async def main():
-    
-    mp.freeze_support()
-    
+        
     utils.check_mic_connection()
     communicator = AsyncSerialCommunicator(params.communicator_config["port"], params.communicator_config["baudrate"])
     await communicator.connect()
@@ -82,4 +80,5 @@ async def main():
         recorder.shutdown()
 
 if __name__ == "__main__":
+    mp.freeze_support()
     asyncio.run(main())

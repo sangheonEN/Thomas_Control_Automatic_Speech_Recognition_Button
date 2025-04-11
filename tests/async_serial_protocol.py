@@ -38,25 +38,32 @@ class SerialProtocolHandler(asyncio.Protocol):
         print("Serial connection lost:", exc)
 
 class AsyncSerialCommunicator:
-    """
-    Args:
-    
-    Functions:
-    - monitor_push_button(): "START" 메시지를 감지하면 push_button_trigger를 True로 설정  
-    - async_sending_param(): 데이터를 전송한 후, echo 응답(OK_target)을 기다려서 확인
-    - connect(): 시리얼 연결을 수립
-    - clear_queue(): 큐에 남아있는 모든 메시지를 비움
-    
-    Description:
-    
-    AsyncSerialCommunicator 내에 선언된 비동기 함수들(예: connect, clear_queue, monitor_push_button, async_sending_param)은 이벤트 루프에 의해 관리됩니다.
-    이벤트 루프는 이 함수들을 작업(task)으로 스케줄링하여, 각각이 실행되어야 할 때 실행되도록 하고, 한 함수가 await로 대기하는 동안 다른 함수들을 실행할 수 있도록 합니다.
-    즉, 이벤트 루프는 단일 스레드 내에서 여러 비동기 함수들이 협력적으로 실행되도록 스케줄링하는 역할을 하며, 이를 통해 각 비동기 함수가 필요한 시점에 실행되도록 관리합니다.
-    
-    스케줄링 방법: asyncio.Queue를 사용하여, 데이터를 저장하고 소비하는 방식으로 비동기 함수 간의 데이터 교환을 수행
-    
-    """
+
     def __init__(self, port, baudrate):
+        """
+        Args:
+            port: serial port 이름
+            baudrate: 통신 속도 
+            push_button_trigger: "START" 메시지를 감지하면 True로 설정
+            queue: asyncio.Queue (메시지를 저장하는 큐, FIFO 방식으로 처리)
+            transport: asyncio.Transport (serial 통신을 위한 transport 객체)
+            protocol: SerialProtocolHandler (시리얼 통신 이벤트를 처리하는 프로토콜 핸들러)
+            
+        Functions:
+        - monitor_push_button(): "START" 메시지를 감지하면 push_button_trigger를 True로 설정  
+        - async_sending_param(): 데이터를 전송한 후, echo 응답(OK_target)을 기다려서 확인
+        - connect(): 시리얼 연결을 수립
+        - clear_queue(): 큐에 남아있는 모든 메시지를 비움
+           
+        Description:
+            
+        AsyncSerialCommunicator 내에 선언된 비동기 함수들(예: connect, clear_queue, monitor_push_button, async_sending_param)은 이벤트 루프에 의해 관리됩니다.
+        이벤트 루프는 이 함수들을 작업(task)으로 스케줄링하여, 각각이 실행되어야 할 때 실행되도록 하고, 한 함수가 await로 대기하는 동안 다른 함수들을 실행할 수 있도록 합니다.
+        즉, 이벤트 루프는 단일 스레드 내에서 여러 비동기 함수들이 협력적으로 실행되도록 스케줄링하는 역할을 하며, 이를 통해 각 비동기 함수가 필요한 시점에 실행되도록 관리합니다.
+          
+        스케줄링 방법: asyncio.Queue를 사용하여, 데이터를 저장하고 소비하는 방식으로 비동기 함수 간의 데이터 교환을 수행
+            
+        """
         self.port = port
         self.baudrate = baudrate
         self.push_button_trigger = False

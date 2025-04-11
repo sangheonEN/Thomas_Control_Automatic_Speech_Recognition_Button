@@ -1,7 +1,7 @@
 recorder_config:
   spinner: false
   input_device_index: 0
-  model: "large-v2"
+  model: "models--deepdml--faster-whisper-large-v3-turbo-ct2"
   language: "ko"
   silero_sensitivity: 0.2
   webrtc_sensitivity: 3
@@ -14,7 +14,7 @@ recorder_config:
   device_name: "LG HBS-PL6S AI"
   
 communicator_config:
-  port: "COM5"
+  port: "COM3"
   baudrate: 115200
   timeout: 0.05
 
@@ -29,6 +29,7 @@ gui_default_config:
 
 event_flag:
   환자분 안녕하세요: 1
+  환자분 반갑습니다: 1
   환자분 성함이 어떻게 되세요: 2
   어디가 불편하세요: 3
   환자분 진료 시작하겠습니다: 4
@@ -36,6 +37,6 @@ event_flag:
   환자분 입을 더 크게 벌려보시겠어요: 6
   통증이 느껴진다면 왼쪽 팔을 들어주세요: 7
   환자분 통증이 느껴지시나요: 8
-  환자분 다시 진료 시작해도 될까요: 9
-  환자분 입을 다물어보세요: 10
-  환자분 진료 끝났습니다. 수고하셨습니다: 11
+  환자분 입을 다물어보세요: 9
+  환자분 진료 끝났습니다. 수고하셨습니다: 10
+  환자분 어서오세요: 1

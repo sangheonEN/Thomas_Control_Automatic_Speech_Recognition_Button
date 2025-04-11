@@ -361,7 +361,6 @@ class AudioToTextRecorder:
             model, wake word detection, or audio recording.
         """
         self.shutdown_lock = threading.Lock()
-        self.thomas_event_state = "normal" # 토마스 이벤트 송수신 상태 체크 변수
         # self.pyannote_flag = pyannote_flag
         self.reduce_db_flag = reduce_db_flag
         self.reduce_noise_flag = reduce_noise_flag
@@ -1556,17 +1555,6 @@ class AudioToTextRecorder:
             if self.realtime_model_type:
                 del self.realtime_model_type
                 self.realtime_model_type = None
-                
-        """
-        20250310 self.transcription_thread가 존재하고 실행 중인 경우 종료
-        """
-        # Terminate the transcription thread if it exists
-        if hasattr(self, 'transcription_thread') and self.transcription_thread.is_alive():
-            self.transcription_thread.join(timeout=10)
-            if self.transcription_thread.is_alive():
-                logging.warning("Transcription thread did not terminate in time. Terminating forcefully.")
-                # Forcefully terminate the thread if necessary
-                self.transcription_thread = None
                 
         gc.collect()
 

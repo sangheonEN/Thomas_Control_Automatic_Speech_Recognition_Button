@@ -45,22 +45,30 @@ class Similarity_cal:
 
         """
         return x == " "
-
+    
     def gestalt_pattern_matching(self, inf_text, threshold):
         """
-            Gestalt pattern matching (SequenceMatcher) based similarity.
-            threshold default : 0.7
+            Gestalt pattern matching (SequenceMatcher) 기반 유사도 측정
         """
-
         score_list = []
+        best_match = None
+        max_similarity = 0
+
         for ref_text in self.ref_text:
             similarity = difflib.SequenceMatcher(self.isjunk, inf_text, ref_text).ratio()
             score_list.append(round(similarity, 3))
 
+            if similarity > max_similarity:
+                max_similarity = similarity
+                best_match = ref_text
 
-        max_similarity = max(score_list)
-        event_flag = score_list.index(max_similarity) + 1 if max_similarity > threshold else None
+        if max_similarity > threshold:
+            event_flag = params.event_flag[best_match]
+        else:
+            event_flag = None
+
         return event_flag, max_similarity, score_list
+    
     
     def sentence_transformers(self, inf_text, threshold):
 
