@@ -26,6 +26,11 @@ V1.4 : 전체 코드 개선 및 버그 수정
 
 1. 변경 사항 : 여러번 버튼 눌렀을 때 "START"가 쌓이는 문제 해결
 
+V1.5 : text_similarity.py 코드 개선
+개선 내용 : dict에 순서 상관 없이 1, 2, 3, 4가 아닌 3, 1, 2, 4로 시나리오 데이터를 저장했을때, 처리하기 위해서는 index를 가지고 best_match text를 특정하여 event_flag = params.event_flag[best_match] 이렇게 value 값을 key값을 활용해 추출함.
+
+V1.6 : 시리얼 통신 수신 데이터 끊겼을때, STX, ETX 활용해서 정확한 수신 데이터를 얻는 코드로 개선. 기존에는 STA, RT 이런식으로 끊겨서 들어오면 동작 안됨. STX인식해서 들어온 값을 _byte_buffer 버퍼에 저장해두고 ETX인식해서 STX, ETX 사이에 들어온 값을 합치고 최종 큐에 put -> self.queue.put_nowait(complete_message)
+
 # py source description.
 
 1. Thomas_audio_control_src.py : Main code. Thomas Connection + Mic Connection + RealTimeSTT + Thomas Sending the Event parameters
