@@ -13,6 +13,8 @@ from text_similarity import Similarity_cal
 from async_serial_protocol import AsyncSerialCommunicator
 
 
+print(os.path.dirname(os.path.abspath(__file__)))
+
 async def main():
         
     utils.check_mic_connection()

@@ -20,19 +20,40 @@ class SerialProtocolHandler(asyncio.Protocol):
         """
         self.queue = queue
         self.transport = None
+        self._byte_buffer = bytearray()
 
     def connection_made(self, transport):
         self.transport = transport
         print("Serial connection established:", transport)
 
     def data_received(self, data):
-        try:
-            message = data.decode("utf-8")
-        except Exception as e:
-            message = repr(data)
-        print("Data received:", message)
-        # 데이터는 큐에 저장하여 소비자가 처리할 수 있도록 함
-        self.queue.put_nowait(message)
+
+        self._byte_buffer.extend(data)
+        print(f"Raw data chunk received: {data}")
+
+        while True:
+            # 버퍼에서 STX와 ETX 위치 찾기
+            stx_index = self._byte_buffer.find(b'\x02')
+            if stx_index == -1:
+                # STX가 없으면 완전한 메시지가 없음.
+                break
+            etx_index = self._byte_buffer.find(b'\x03', stx_index + 1)
+            if etx_index == -1:
+                # ETX가 아직 도착하지 않음 => 더 대기
+                break
+
+            # STX부터 ETX까지 (ETX 포함) 를 완전한 메시지로 간주
+            complete_bytes = self._byte_buffer[stx_index:etx_index + 1]
+            try:
+                # 완전한 메시지를 디코딩 (원하는 경우, control 문자를 남길 수 있음)
+                complete_message = complete_bytes.decode("utf-8", errors="replace")
+            except Exception as e:
+                complete_message = repr(complete_bytes)
+            print("Complete message extracted:", complete_message)
+            self.queue.put_nowait(complete_message)
+            # 처리한 메시지 부분은 버퍼에서 제거
+            del self._byte_buffer[:etx_index + 1]
+            
 
     def connection_lost(self, exc):
         print("Serial connection lost:", exc)
