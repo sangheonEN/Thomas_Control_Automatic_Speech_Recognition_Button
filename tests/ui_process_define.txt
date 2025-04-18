@@ -1,0 +1,43 @@
+tab_1
+    gridLayout
+        - comboBox_1 : label_1 language에 해당하는 파라미터 선택 동작
+        - comboBox_2 : label_2 port에 해당하는 파라미터 선택 동작
+        - comboBox_3 : label_3 baudrate에 해당하는 파라미터 선택 동작
+        - label : 동작 없음 Start Automatic Speech Recognition 제목
+        - label_0 : 동작 없음 Config Settings 제목
+        - label_1 : 동작 없음 comboBox_1에 정의될 파라미터의 제목
+        - label_2 : 동작 없음 comboBox_2에 정의될 파라미터의 제목
+        - label_3 : 동작 없음 comboBox_3에 정의될 파라미터의 제목
+        - label_4 : 동작 있음.
+                     - 동작 내용
+                      1) 음성인식 수행되고 있을 경우, os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon") 경로의 mic_active_64.png 표시
+                      2) 음성인식 수행되지 않을 경우, os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon") 경로의 mic_deactive_64.png 표시
+        - label_5 : 동작 없음 음성 인식 출력란 제목
+        - pushButton_1 : 동작 있음 Config Settings 완료 후 파라미터 변경 버튼
+                              - 동작 내용
+                                1) 버튼 클릭 시, comboBox_1의 선택된 값을 가져와 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml') 파일의 recorder_config: language: 값 업데이트, comboBox_2의 선택된 값을 가져와 yaml 파일의 communicator_config: port: 값 업데이트, comboBox_3의 선택된 값을 가져와 yaml 파일의 communicator_config: baudrate: 값 업데이트.
+        - pushButton_2 : 동작 있음 
+                              - 동작 내용
+                                1) 버튼 클릭 시, serial 통신 연결 확인 기능
+        - pushButton_3 : 동작 있음 
+                              - 동작 내용
+                                1) 버튼 클릭 시, 마이크 연결 확인 기능
+        - pushButton_4 : 동작 있음
+                              - 동작 내용
+                                1) 버튼 클릭 시, 음성 인식 시작 및 버튼 이름 음성 인식 종료로 전환
+                                2) 음성 인식을 종료하고 싶을때 전환된 음성 인식 종료 버튼 클릭 시, 관련된 음성 인식 기능 모두 종료, 버튼 이름 음성 인식 시작으로 전환
+        - pushButton_5 : 동작 있음
+                              - 1) 버튼 클릭 시, textEdit 음성 인식 결과 창 내용 빈 페이지로 리셋
+        - textEdit : 음성 인식 결과, 시리얼 통신 데이터 송수신 내용 출력 창
+
+tab_2
+    gridLayout_2
+        - pushButton_6 : 동작 있음
+                              - 1) 버튼 클릭 시, ui에 기입한 시나리오 및 번호를 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml') 파일의 event_flag: key는 columns, value는 rows 값으로 대응해서 항목에 조회
+        - pushButton_7 : 동작 있음
+                              - 1) 버튼 클릭 시, ui에 기입한 시나리오 및 번호를 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml') 파일의 event_flag: key는 columns, value는 rows 값으로 대응해서 항목에 추가
+        - pushButton_8 : 동작 있음
+                              - 1) 버튼 클릭 시, ui에 기입한 시나리오 및 번호를 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml') 파일의 event_flag: key는 columns, value는 rows 값으로 대응해서 항목에 수정
+        - pushButton_9 : 동작 있음
+                              - 1) 버튼 클릭 시, ui에 기입한 시나리오 및 번호를 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml') 파일의 event_flag: key는 columns, value는 rows 값으로 대응해서 항목에 삭제
+        - tableWidget : 동작 있음. pushButton_6, 7, 8, 9의 동작 후 업데이트된 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml') 파일의 정보를 표시

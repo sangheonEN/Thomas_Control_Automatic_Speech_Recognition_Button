@@ -1,43 +1,38 @@
-recorder_config:
-  spinner: false
-  input_device_index: 0
-  model: "models--deepdml--faster-whisper-large-v3-turbo-ct2"
-  language: "ko"
-  silero_sensitivity: 0.2
-  webrtc_sensitivity: 3
-  reduce_noise_flag: false
-  silero_model_path: "silero_model"
-  silero_use_onnx: true
-  silero_deactivity_detection: true
-  post_speech_silence_duration: 0.2
-  pre_recording_buffer_duration: 0.2
-  device_name: "LG HBS-PL6S AI"
-  device: "cuda"
-
 communicator_config:
-  port: "COM3"
   baudrate: 115200
+  port: COM3
   timeout: 0.05
-
-similarity_config:
-  function: "gestalt_pattern_matching"
-  threshold: 0.75
-  model_path: null
-
+event_flag:
+  통증이 느껴진다면 왼쪽 팔을 들어주세요: 7
+  환자분 반갑습니다: 1
+  환자분 성함이 어떻게 되세요: 2
+  환자분 아 하세요: 5
+  환자분 안녕하세요: 1
+  환자분 입을 다물어보세요: 9
+  환자분 입을 더 크게 벌려보시겠어요: 6
+  환자분 진료 끝났습니다. 수고하셨습니다: 10
+  환자분 진료 시작하겠습니다: 4
+  환자분 통증이 느껴지시나요: 8
+  환자분 화장실은 밖에 있어요: 3
 gui_default_config:
   icon_path: icon
   ui_file_path: design_gridlayout_tab_adjust.ui
-
-event_flag:
-  환자분 안녕하세요: 1
-  환자분 반갑습니다: 1
-  환자분 성함이 어떻게 되세요: 2
-  어디가 불편하세요: 3
-  환자분 진료 시작하겠습니다: 4
-  환자분 아 하세요: 5
-  환자분 입을 더 크게 벌려보시겠어요: 6
-  통증이 느껴진다면 왼쪽 팔을 들어주세요: 7
-  환자분 통증이 느껴지시나요: 8
-  환자분 입을 다물어보세요: 9
-  환자분 진료 끝났습니다. 수고하셨습니다: 10
-  환자분 어서오세요: 1
+recorder_config:
+  device: cuda
+  device_name: LG HBS-PL6S AI
+  input_device_index: 0
+  language: ko
+  model: models--deepdml--faster-whisper-large-v3-turbo-ct2
+  post_speech_silence_duration: 0.2
+  pre_recording_buffer_duration: 2.0
+  reduce_noise_flag: false
+  silero_deactivity_detection: true
+  silero_model_path: silero_model
+  silero_sensitivity: 0.2
+  silero_use_onnx: true
+  spinner: false
+  webrtc_sensitivity: 3
+similarity_config:
+  function: gestalt_pattern_matching
+  model_path: null
+  threshold: 0.75
