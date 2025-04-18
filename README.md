@@ -31,6 +31,8 @@ V1.5 : text_similarity.py 코드 개선
 
 V1.6 : 시리얼 통신 수신 데이터 끊겼을때, STX, ETX 활용해서 정확한 수신 데이터를 얻는 코드로 개선. 기존에는 STA, RT 이런식으로 끊겨서 들어오면 동작 안됨. STX인식해서 들어온 값을 _byte_buffer 버퍼에 저장해두고 ETX인식해서 STX, ETX 사이에 들어온 값을 합치고 최종 큐에 put -> self.queue.put_nowait(complete_message)
 
+V1.7 : qt_main.py 소스에 음성 모듈 UI 기능 탑재. 음성 인식을 위한 config 설정, 마이크 check, Port check, 음성 인식 시작/종료 기능, 음성 인식 결과 출력 창, 출력 창 리셋 기능, 시나리오 추가 기능
+
 # py source description.
 
 1. Thomas_audio_control_src.py : Main code. Thomas Connection + Mic Connection + RealTimeSTT + Thomas Sending the Event parameters

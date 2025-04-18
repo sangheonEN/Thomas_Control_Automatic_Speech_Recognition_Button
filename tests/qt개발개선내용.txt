@@ -1,0 +1,38 @@
+1. 문제 내용 UI에서 시나리오를 추가한 뒤에 다시 음성 인식을 진행하니까 추가된 시나리오에 대해서는 유사도를 측정해서 비교를 안하게 되네?
+
+event_flag, max_similarity = utils.event_matching(inf_text, similarity_cal, params.similarity_config) 
+
+이 코드에서 text_similarity.py의 self.ref_text = [*params.event_flag.keys()] 이 변수가 업데이트 되게 하려면 어떻게 해야할까?
+
+- 개선 방법 
+delete, add, update할때 params.event_flag 수동 갱신
+
+        with open(config_path, "r", encoding="UTF8") as f:
+            config = yaml.safe_load(f)
+        params.event_flag = config.get("event_flag", {})
+
+
+2. 문제 내용 : 음성 인식 시작 상태일때 시나리오 변경해버려도 적용 안됨.
+
+- 개선 방법 : 음성 인식 시작 상태일때, 시나리오 삭제, 추가, 수정 기능 동작 안되게 예외처리
+        if self.stt_running:
+            QtWidgets.QMessageBox.warning(self, "음성 인식 종료 확인", "음성 인식이 종료되지 않았습니다. 음성 인식을 먼저 종료해주세요.")
+            return
+
+3. 문제 내용 : 원하는 port가 아니면 오류를 발생하거나, 
+- 개선 방법 : USB Serial Port를 특정해서 combobox에 표시되도록 하드 코딩
+
+    def load_serial_ports(self):
+        self.comboBox_2.clear()  # 기존 포트 항목 비우기
+
+        usb_ports = [
+            port.device
+            for port in list_ports.comports()
+            if "USB Serial Port" in port.description  # ← 핵심 필터
+        ]
+
+        if not usb_ports:
+            self.updateTextSignal.emit("⚠️ USB Serial Port를 찾을 수 없습니다.")
+        else:
+            self.comboBox_2.addItems(usb_ports)
+            self.updateTextSignal.emit(f"🔌 사용 가능한 USB 포트: {', '.join(usb_ports)}")
