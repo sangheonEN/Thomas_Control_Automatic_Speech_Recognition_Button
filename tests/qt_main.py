@@ -1,19 +1,24 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import asyncio
 import time
 import yaml
 import threading
-from PyQt5 import QtWidgets, uic, QtGui, QtCore
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5.QtCore import pyqtSignal
 from serial.tools import list_ports
+import torch.multiprocessing as mp
+import logging
+
 
 import params
 import utils
 from async_serial_protocol import AsyncSerialCommunicator
 from RealTimeSTT_LEE.audio_recorder import AudioToTextRecorder
 from text_similarity import Similarity_cal
+
 
 class MainWindow(QtWidgets.QMainWindow):
     # 메인 스레드에서 안전하게 UI 업데이트를 수행하기 위한 시그널 정의
@@ -28,7 +33,10 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # 시그널과 슬롯 연결: 백그라운드 스레드의 메시지를 메인 스레드에서 처리하도록 함.
         self.updateTextSignal.connect(self.update_text)
-        
+
+        # 사용 가능한 mic name, index combobox표시
+        self.load_mic_devices()
+
         # Tab1 위젯에 해당하는 위젯 연결 (ui_process_define.txt에 기술된 이름 활용)
         # 예를 들어 comboBox_1, comboBox_2, comboBox_3, pushButton_1~pushButton_5, textEdit, label_4
         self.pushButton_1.clicked.connect(self.update_config)
@@ -77,11 +85,15 @@ class MainWindow(QtWidgets.QMainWindow):
         language = self.comboBox_1.currentText()
         port = self.comboBox_2.currentText()
         baudrate = self.comboBox_3.currentText()
+        mic_index = self.comboBox_4.currentData()  # 사용자 선택 index 가져오기
+
         config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recorder_config.yaml')
         with open(config_path, "r", encoding="UTF8") as f:
             config = yaml.safe_load(f)
         config['recorder_config']['language'] = language
         config['communicator_config']['port'] = port
+        config['recorder_config']['input_device_index'] = mic_index
+
         try:
             config['communicator_config']['baudrate'] = int(baudrate)
         except:
@@ -106,15 +118,27 @@ class MainWindow(QtWidgets.QMainWindow):
             self.updateTextSignal.emit(f"Serial port {port} not found!")
             self.serialConnected = False
 
+    def load_mic_devices(self):
+        self.comboBox_4.clear()
+        mic_list = utils.list_input_devices()
+        for index, name in mic_list:
+            # self.comboBox_4.addItem(f"[{index}] {name}", userData=index)
+            self.comboBox_4.addItem(f"{name}", userData=index)
+        if mic_list:
+            self.updateTextSignal.emit("마이크 장치를 로딩했습니다.")
+        else:
+            self.updateTextSignal.emit("사용할 수 있는 마이크 장치를 찾지 못했습니다.")
+
     def check_mic(self):
         # pushButton_3: 마이크 연결 확인
         try:
-            utils.check_mic_connection()
-            self.micConnected = True
-            self.updateTextSignal.emit("Microphone connection successful.")
+            result_flag, result_describe = utils.check_mic_connection()
+            self.micConnected = result_flag
+            self.updateTextSignal.emit(result_describe)
         except Exception as e:
-            self.micConnected = False
-            self.updateTextSignal.emit("Microphone error: " + str(e))
+            self.micConnected = result_flag
+            self.updateTextSignal.emit(result_describe)
+            logging.exception(f"마이크 체크 중 오류 발생 : {str(e)}")
 
     def toggle_stt(self):
         # 음성인식 시작 전에 마이크 연결 여부 검사
@@ -162,6 +186,7 @@ class MainWindow(QtWidgets.QMainWindow):
             loop.run_until_complete(self.stt_loop())
         except Exception as e:
             self.updateTextSignal.emit(f"STT error: {e}")
+            logging.exception(f"qt stt_loop 함수 thread 처리 시 error 발생 내용 : {e}")
         finally:
             loop.close()
 
@@ -179,16 +204,20 @@ class MainWindow(QtWidgets.QMainWindow):
         #            그 후 음성 인식 종료 버튼 클릭 시 self.stt_running가 False, monitor_task.cancel()로 종료 후 메인 loop break
         # ----------------------------------------------------------------------------------------------------------------------
         while self.stt_running:
-            monitor_task = asyncio.create_task(self.communicator.monitor_push_button())
+            try:
 
-            # Task가 완료될 때까지 주기적으로 폴링하면서 stt_running 상태 확인
-            while self.stt_running and not monitor_task.done():
-                await asyncio.sleep(0.01)
-            
-            if not self.stt_running:
-                # stt_running이 False이면 monitor_task를 취소하고 루프 탈출
-                monitor_task.cancel()
-                break
+                monitor_task = asyncio.create_task(self.communicator.monitor_push_button())
+
+                # Task가 완료될 때까지 주기적으로 폴링하면서 stt_running 상태 확인
+                while self.stt_running and not monitor_task.done():
+                    await asyncio.sleep(0.01)
+                
+                if not self.stt_running:
+                    # stt_running이 False이면 monitor_task를 취소하고 루프 탈출
+                    monitor_task.cancel()
+                    break
+            except Exception as e:
+                logging.exception(f"push button 동작 중 error 발생 내용 : {e}")
         # ----------------------------------------------------------------------------------------------------------------------
         
             # await self.communicator.monitor_push_button() # -> 얘가 문제네. 얘가 종료되지 않아서 run_stt thread가 종료되지 않음.
@@ -198,8 +227,22 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.communicator.push_button_trigger = False
                 start_time = time.time()
                 # 음성 인식은 blocking 함수이므로 asyncio.to_thread()로 호출
-                inf_text = await asyncio.to_thread(self.recorder.text)
-                event_flag, max_similarity = utils.event_matching(inf_text, similarity_cal, params.similarity_config)
+                # inf_text = await asyncio.to_thread(self.recorder.text)
+                # inf_text = self.recorder.text()
+                try:
+
+                    loop = asyncio.get_event_loop()
+                    inf_text = await loop.run_in_executor(None, self.recorder.text)
+                except Exception as e:
+                    logging.exception(f"STT 처리 시 error 발생 내용 : {e}")
+
+                try:
+
+                    event_flag, max_similarity = utils.event_matching(inf_text, similarity_cal, params.similarity_config)
+                
+                except Exception as e:
+                    logging.exception(f"이벤트 매칭 기능 처리 시 error 발생 내용 : {e}")
+
                 # self.updateTextSignal.emit(f"Event flag: {event_flag}")
                 self.updateTextSignal.emit(f"Recognized Text: {inf_text}")
                 # self.updateTextSignal.emit(f"Similarity: {max_similarity}")
@@ -209,6 +252,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 tens = event_flag // 10
                 units = event_flag % 10
                 thomas_event_state = await self.communicator.async_sending_param(tens, units, thomas_event_state="ok")
+                if thomas_event_state != "ok":
+                    print(f"serial error : {thomas_event_state}")
+                    QtWidgets.QMessageBox.warning(self, f"serial error", f"Error 내용 : {thomas_event_state} 통신 문제로 장치를 확인하세요.")
                 self.updateTextSignal.emit(f"Final event state: {thomas_event_state}")
                 end_time = time.time()
                 # self.updateTextSignal.emit(f"Processing Time: {end_time - start_time}")
@@ -328,6 +374,29 @@ class MainWindow(QtWidgets.QMainWindow):
             config = yaml.safe_load(f)
         params.event_flag = config.get("event_flag", {})
 
+    def closeEvent(self, event):
+        self.updateTextSignal.emit("🛑 창 종료 요청 감지됨. 리소스를 정리합니다...")
+
+        self.stt_running = False  # 루프 종료 요청
+
+        if self.communicator:
+            self.communicator.close()
+        if self.recorder:
+            self.recorder.shutdown()
+        self.update_mic_icon(active=False)
+
+        if hasattr(self, "stt_thread") and self.stt_thread is not None:
+            self.updateTextSignal.emit("Waiting for STT thread to finish...")
+            self.stt_thread.join(timeout=5)
+            if self.stt_thread.is_alive():
+                self.updateTextSignal.emit("⚠️ STT thread did not finish in time.")
+            else:
+                self.updateTextSignal.emit("✅ STT thread has been terminated.")
+
+        self.updateTextSignal.emit("✅ 모든 리소스를 정리하고 종료합니다.")
+        event.accept()  # 창 닫기 허용
+
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
@@ -335,4 +404,19 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
-    main()
+    # 로그 설정
+    log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'main_error_log.txt')
+    logging.basicConfig(
+        level=logging.ERROR,
+        format='%(asctime)s [%(levelname)s] %(message)s',
+        handlers=[
+            logging.FileHandler(log_file_path, mode='w', encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    mp.freeze_support()
+    
+    try:    
+        main()
+    except Exception as e:
+        logging.exception(f"메인 코드 예외 발생 내용 : {e}")

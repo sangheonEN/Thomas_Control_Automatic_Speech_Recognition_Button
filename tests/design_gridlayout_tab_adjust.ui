@@ -40,42 +40,20 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="7" column="0">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>토마스 연결</string>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_0">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+          </font>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>baudrate</string>
+          <string>Config Settings</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="text">
-          <string>음성 인식 시작</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0" colspan="2">
-        <widget class="QTextEdit" name="textEdit"/>
        </item>
        <item row="2" column="1">
         <widget class="QComboBox" name="comboBox_1">
@@ -84,6 +62,13 @@
            <string>ko</string>
           </property>
          </item>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <widget class="QPushButton" name="pushButton_1">
+         <property name="text">
+          <string>파라미터 변경</string>
+         </property>
         </widget>
        </item>
        <item row="3" column="1">
@@ -150,36 +135,58 @@
          </item>
         </widget>
        </item>
-       <item row="5" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_1">
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>파라미터 변경</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="text">
-          <string>출력창 리셋</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_0">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Config Settings</string>
+          <string>baudrate</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="9" column="0" colspan="2">
+       <item row="8" column="1">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>마이크 연결</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>음성 인식 시작</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QTextEdit" name="textEdit"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>port</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>토마스 연결</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="2">
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>출력창 리셋</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0" colspan="2">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>음성 인식 출력란</string>
@@ -199,10 +206,10 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_2">
+       <item row="9" column="1">
+        <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>port</string>
+          <string>TextLabel</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -283,14 +290,7 @@
          </item>
         </widget>
        </item>
-       <item row="7" column="1">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>마이크 연결</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
+       <item row="7" column="0" colspan="2">
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
@@ -299,6 +299,19 @@
          </property>
          <property name="text">
           <string>Start Automatic Speech Recognition</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="comboBox_4"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Mic Device Name</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

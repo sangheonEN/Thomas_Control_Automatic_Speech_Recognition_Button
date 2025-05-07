@@ -1,10 +1,10 @@
 communicator_config:
-  baudrate: 115200
+  baudrate: 110
   port: COM3
   timeout: 0.05
 event_flag:
+  어디가 불편하세요: 3
   통증이 느껴진다면 왼쪽 팔을 들어주세요: 7
-  환자분 반갑습니다: 1
   환자분 성함이 어떻게 되세요: 2
   환자분 아 하세요: 5
   환자분 안녕하세요: 1
@@ -13,18 +13,17 @@ event_flag:
   환자분 진료 끝났습니다. 수고하셨습니다: 10
   환자분 진료 시작하겠습니다: 4
   환자분 통증이 느껴지시나요: 8
-  환자분 화장실은 밖에 있어요: 3
 gui_default_config:
   icon_path: icon
   ui_file_path: design_gridlayout_tab_adjust.ui
 recorder_config:
   device: cuda
   device_name: LG HBS-PL6S AI
-  input_device_index: 0
+  input_device_index: 1
   language: ko
   model: models--deepdml--faster-whisper-large-v3-turbo-ct2
   post_speech_silence_duration: 0.2
-  pre_recording_buffer_duration: 2.0
+  pre_recording_buffer_duration: 0.2
   reduce_noise_flag: false
   silero_deactivity_detection: true
   silero_model_path: silero_model

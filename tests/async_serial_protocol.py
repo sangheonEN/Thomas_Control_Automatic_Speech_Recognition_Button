@@ -122,53 +122,96 @@ class AsyncSerialCommunicator:
                 break
 
     async def async_sending_param(self, tens, units, thomas_event_state, timeout=4.0, retries=3):
-        """
-        전송할 데이터를 보낸 후, echo 응답(OK_target)이 올 때까지 큐에서 메시지를 기다립니다.
-        OK_target이 확인되면 정상 상태(thomas_event_state)를 반환하고, 그렇지 않으면 "serial_error"를 반환합니다.
-        """
+
         OK_target = f'\x02{tens}{units}OK\x03'
-        # 전송할 데이터 생성 (예: [STX, tens, units, ETX])
         val = [2, ord(str(tens)), ord(str(units)), 3]
         byte_array = bytearray(val)
 
-        # 데이터 전송 전, 남은 메시지가 있다면 비우기
-        # await asyncio.sleep(0.05)
         await self.clear_queue()
-
-        # 명령 전송
         self.transport.write(byte_array)
         print("[Preprocess] Sent command:", byte_array)
 
         attempt = 0
-        try:
-            async with asyncio.timeout(timeout):
-                while True:
-                    # echo 응답을 기다림 (timeout 내에 메시지 없으면, TimeoutError 발생)
-                    message = await self.queue.get()
-                    print("[Preprocess] Received echo:", message)
-                    
-                    if OK_target in message:
-                        print("[Preprocess] OK_target matched!")
+
+        async def wait_for_echo():
+            nonlocal thomas_event_state
+            while True:
+                message = await self.queue.get()
+                print("[Preprocess] Received echo:", message)
+
+                if OK_target in message:
+                    print("[Preprocess] OK_target matched!")
+                    return thomas_event_state
+
+                elif "START" in message:
+                    print("[Preprocess] 'START' message detected. Ignoring...")
+                    continue
+
+                else:
+                    print("[Preprocess] Echo mismatch. Retrying command...")
+                    attempt_nonlocal[0] += 1
+                    if attempt_nonlocal[0] >= retries:
+                        thomas_event_state = "Retrying error"
                         return thomas_event_state
-                    
-                    elif "START" in message:
-                        print("[Preprocess] 'START' message detected. Ignoring...")
-                        continue
-                    else:
-                        print("[Preprocess] Echo mismatch. Retrying command...")
-                        attempt += 1
-                        if attempt >= retries:
-                            thomas_event_state = "serial_error"
-                            return thomas_event_state
-                        self.transport.write(byte_array)
-                        
+                    self.transport.write(byte_array)
+
+        attempt_nonlocal = [attempt]  # workaround for nonlocal in nested function
+        try:
+            result = await asyncio.wait_for(wait_for_echo(), timeout=timeout)
+            return result
         except asyncio.TimeoutError:
             print("[Preprocess] Timeout waiting for echo response.")
-            thomas_event_state = "serial_error"
+            thomas_event_state = "Time out error"
             return thomas_event_state
         
-        thomas_event_state = "serial_error"
-        return thomas_event_state
+    # async def async_sending_param(self, tens, units, thomas_event_state, timeout=4.0, retries=3):
+    #     """
+    #     전송할 데이터를 보낸 후, echo 응답(OK_target)이 올 때까지 큐에서 메시지를 기다립니다.
+    #     OK_target이 확인되면 정상 상태(thomas_event_state)를 반환하고, 그렇지 않으면 "serial_error"를 반환합니다.
+    #     """
+    #     OK_target = f'\x02{tens}{units}OK\x03'
+    #     # 전송할 데이터 생성 (예: [STX, tens, units, ETX])
+    #     val = [2, ord(str(tens)), ord(str(units)), 3]
+    #     byte_array = bytearray(val)
+
+    #     # 데이터 전송 전, 남은 메시지가 있다면 비우기
+    #     # await asyncio.sleep(0.05)
+    #     await self.clear_queue()
+
+    #     # 명령 전송
+    #     self.transport.write(byte_array)
+    #     print("[Preprocess] Sent command:", byte_array)
+
+    #     attempt = 0
+    #     try:
+    #         async with asyncio.timeout(timeout):
+    #             while True:
+    #                 # echo 응답을 기다림 (timeout 내에 메시지 없으면, TimeoutError 발생)
+    #                 message = await self.queue.get()
+    #                 print("[Preprocess] Received echo:", message)
+                    
+    #                 if OK_target in message:
+    #                     print("[Preprocess] OK_target matched!")
+    #                     return thomas_event_state
+                    
+    #                 elif "START" in message:
+    #                     print("[Preprocess] 'START' message detected. Ignoring...")
+    #                     continue
+    #                 else:
+    #                     print("[Preprocess] Echo mismatch. Retrying command...")
+    #                     attempt += 1
+    #                     if attempt >= retries:
+    #                         thomas_event_state = "serial_error"
+    #                         return thomas_event_state
+    #                     self.transport.write(byte_array)
+                        
+    #     except asyncio.TimeoutError:
+    #         print("[Preprocess] Timeout waiting for echo response.")
+    #         thomas_event_state = "serial_error"
+    #         return thomas_event_state
+        
+    #     thomas_event_state = "serial_error"
+    #     return thomas_event_state
                     
 
     def close(self):
