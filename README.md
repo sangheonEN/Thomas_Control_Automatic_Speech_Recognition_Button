@@ -33,6 +33,37 @@ V1.6 : 시리얼 통신 수신 데이터 끊겼을때, STX, ETX 활용해서 정
 
 V1.7 : qt_main.py 소스에 음성 모듈 UI 기능 탑재. 음성 인식을 위한 config 설정, 마이크 check, Port check, 음성 인식 시작/종료 기능, 음성 인식 결과 출력 창, 출력 창 리셋 기능, 시나리오 추가 기능
 
+V1.8 : pyinstaller 문제를 python 3.11.5 버전에서 3.8.10 버전으로 down grade하니 해결. 하지만, asyncio 기능 중에 3.11.5 버전에서 지원하는 코드에서 오류 발생 해당 내용 개선 내용 아래에 기재
+
+1. python 3.11.5 버전으로는 pyqt를 적용해보니까 pyinstaller가 적용 안됨.
+
+    - 오류 내용
+
+        exe 실행 시 [Traceback Error]
+        importError: DLL load failed while importing onnxruntime_pybind11_state:
+        [PYI-3712:ERROR] Failed to execute script "xxx" due to unhandled exception!
+
+2. 그래서 python 3.8.10 버전으로 낮추니까 exe 생성 및 오류 발생하지 않음. 하지만, python 3.11.5 버전에 맞춰 asyncio가 구현되어 있어서 그걸 버전 낮추면서 수정해야했음.
+
+     - 수정 내용
+
+        1) asyncio.to_thread 지원하지 않음.
+           * 수정 전 내용 : inf_text = await asyncio.to_thread(self.recorder.text)
+           * 수정 후 내용 : 
+                               loop = asyncio.get_event_loop()
+                               inf_text = await loop.run_in_executor(None, self.recorder.text)
+
+        2) asyncio.timeout 지원하지 않음. 
+           * 수정 전 내용 : async with asyncio.timeout(timeout):
+           * 수정 후 내용 : await asyncio.wait_for(wait_for_echo(), timeout=timeout)
+
+3. closeEvent 기능 추가 : window 종료 X UI 클릭 시 동작 중인 process, thread 모두 종료
+
+4. 통신 문제 발생 시 메세지 박스 출력 : QtWidgets.QMessageBox.warning(self, f"serial error", f"Error 내용 : {thomas_event_state} 통신 문제로 장치를 확인하세요.")
+
+5. mic device 선택 combobox 추가
+    - utils.py에 check_mic_connection 함수 그냥 index 연결 체크만 하도록 수정함.
+
 # py source description.
 
 1. Thomas_audio_control_src.py : Main code. Thomas Connection + Mic Connection + RealTimeSTT + Thomas Sending the Event parameters
